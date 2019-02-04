@@ -1,0 +1,13 @@
+{
+  "dirSeparator" : ".",
+  "filePrefix" : "::",
+  "tasks" : {
+    "res/shaders" : {
+      "output" : "res/output/shaders.json",
+      "extensions" : ["vert", "frag"],
+      "readFile" : "true",
+      "extensionInName" : "true",
+      "trim" : "true"
+    }
+  }
+}

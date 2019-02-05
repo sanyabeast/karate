@@ -1,0 +1,15 @@
+elements:
+  - body: sprite
+    texture: sprites/estate/bush.png
+    scale:
+      x: 15
+      y: 15
+    shaders:
+      vertex: default
+      fragment: texture
+tags:
+  - plant
+  - bush
+  - green
+  - combustible
+  - destructible

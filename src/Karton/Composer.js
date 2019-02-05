@@ -4,6 +4,9 @@ import Estate 	from "Karton/ShapeMaster/Estate"
 import Actor 	from "Karton/ShapeMaster/Actor"
 import Thing 	from "Karton/ShapeMaster/Thing"
 
+import Units from "Karton/Units"
+import Textures from "Karton/Textures"
+
 class Composer {
 	static Unit = Unit;
 	static Surface = Surface;
@@ -17,6 +20,10 @@ class Composer {
 
 	createSurface (description) {
 		return new Surface(this, description)
+	}
+
+	createEstate (description){
+		return new Estate(this, description)
 	}
 
 }

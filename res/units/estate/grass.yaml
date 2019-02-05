@@ -1,9 +1,10 @@
 elements:
-  - body: sprite
-    texture: sprites/estate/tree.png
+  - type: sprite
+    texture: estate/forest_grass_0
     scale:
-      x: 15
-      y: 15
+      x: 0.1
+      y: 0.1
+      fuzz: 0.05
     shaders:
       vertex: default
       fragment: texture

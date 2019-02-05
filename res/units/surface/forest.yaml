@@ -3,28 +3,15 @@ elements:
     - type: estate
       name: grass
       location:
-          type: everywhere
-    - type: estate
-      name: bush
-      location:
           type: random
-          probability: 0.3
-    - type: estate
-      name: stone
-      location:
-          type: random
-          probability: 0.1
-    - type: estate
-      name: stone
-      location:
-          type: position
-          x: 13
-          y: 15
+          probability: 0.8
+          fuzz: 0.8
     - type: estate
       name: tree
       location:
           type: random
-          probability: 0.2
+          probability: 0.05
+          fuzz: 0.6
   landscape:
     type: sprite
     texture: surface/forest_mountains_landscape.png

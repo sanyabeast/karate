@@ -41,6 +41,13 @@ let webpackConfig = {
                   loader : path.resolve(__dirname, "scripts/unexportize.js")
               }],
           },
+          {
+              test: /\.(png|jpg|gif|svg)$/,
+              loader: "file-loader",
+              options: {
+                  name: "[name].[ext]?[hash]"
+              }
+          },
           /** yaml */
           { test: /\.yaml$/, include: [path.join(__dirname, "res")], use: ["json-loader", "yaml-loader"] },
           /** xml */

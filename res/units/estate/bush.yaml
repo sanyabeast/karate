@@ -1,5 +1,5 @@
 elements:
-  - body: sprite
+  - type: sprite
     texture: sprites/estate/bush.png
     scale:
       x: 15

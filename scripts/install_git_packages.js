@@ -22,10 +22,10 @@ for (var k in package.dependencies){
 	}
 }
 
-for (var k in package.devDependencies){
-	if (package.devDependencies[k].indexOf("git://") > -1){
+for (var k in package.gitDependencies){
+	if (package.gitDependencies[k].indexOf("git://") > -1){
 		tasks.push({
-			gitUrl : package.devDependencies[k], 
+			gitUrl : package.gitDependencies[k], 
 			rootDirectoryPath : "node_modules", 
 			packageName : k
 		});

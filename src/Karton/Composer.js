@@ -11,8 +11,12 @@ class Composer {
 	static Actor = Actor;
 	static Thing = Thing;
 
-	constructor () {
+	constructor (params) {
+		this.renderer = params.renderer
+	}
 
+	createSurface (description) {
+		return new Surface(this, description)
 	}
 
 }

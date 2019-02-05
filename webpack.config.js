@@ -57,12 +57,13 @@ let webpackConfig = {
           "unicycle"                  : "unicycle/unicycle",
           "tweener"                   : "tweener/tweener",
           "todo"                      : "todojs/todo",
-          "three"                     : "three.js/src/Three",
+          "three"                     : "three.js",
           "file"                      : "requirejs-text/text",
           "dollaclass"                : "dollaclass/dollaclass",
           "hotkeys-js"                : "hotkeys-js/dist/hotkeys.min",
           "resize-observer-polyfill"  : "resize-observer-polyfill/dist/ResizeObserver",
-          "statsjs"                   : "stats.js/build/stats.min"
+          "statsjs"                   : "stats.js/build/stats.min",
+          "lodash"                    : "lodash/index",
   		}
   	},
   	resolveLoader : {

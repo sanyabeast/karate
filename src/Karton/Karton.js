@@ -7,9 +7,16 @@ class Karton {
 
 	constructor () {
 		this.renderer = new Renderer()
-		this.composer = new Composer()
+		this.composer = new Composer({
+			renderer: this.renderer
+		})
 
 		console.log(Units)
+
+		let forset = window.forest = this.composer.createSurface(Units["surface/forest"])
+
+		clog(forest)
+		
 
 		document.body.appendChild(this.renderer.dom)
 	}

@@ -1,29 +1,38 @@
-fillers:
-  - type: estate
-    name: grass
-    location:
-        type: everywhere
-  - type: estate
-    name: bush
-    location:
-        type: random
-        probability: 0.3
-  - type: estate
-    name: stone
-    location:
-        type: random
-        probability: 0.1
-  - type: estate
-    name: stone
-    location:
-        type: position
-        x: 13
-        y: 15
-  - type: estate
-    name: tree
-    location:
-        type: random
-        probability: 0.2
-landscape:
-  - type: sprite
-    name: surface/forest_mountains_landscape.png
+elements:
+  fillers:
+    - type: estate
+      name: grass
+      location:
+          type: everywhere
+    - type: estate
+      name: bush
+      location:
+          type: random
+          probability: 0.3
+    - type: estate
+      name: stone
+      location:
+          type: random
+          probability: 0.1
+    - type: estate
+      name: stone
+      location:
+          type: position
+          x: 13
+          y: 15
+    - type: estate
+      name: tree
+      location:
+          type: random
+          probability: 0.2
+  landscape:
+    type: sprite
+    texture: surface/forest_mountains_landscape.png
+  ground:
+    type: sprite
+    texture: "surface/forest_ground.jpg"
+tags:
+  - forest
+params:
+  grid:
+    size: 64

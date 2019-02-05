@@ -8,8 +8,7 @@
   	},
   	"license": "MIT",
   	"scripts": {
-  	    "setup": "yarn install && node scripts/install_git_packages.js && yarn run reslist",
-  	    "reslist": "node ./node_modules/reslist/reslist.js ./scripts/reslist.config.json",
+  	    "setup": "yarn install && node scripts/install_git_packages.js",
   	    "start": "cross-env NODE_ENV=development node scripts/server.js",
   	    "build": "cross-env NODE_ENV=production webpack"
   	},
@@ -51,7 +50,8 @@
       "xml-loader": "latest",
   	  "copy-webpack-plugin": "latest",
   	  "node-sass-magic-importer": "latest",
-  	  "stats.js": "latest"
+  	  "stats.js": "latest",
+      "lodash": "latest"
   	},
     "gitDependencies" : {
       "three.js": "git://github.com/mrdoob/three.js.git",

@@ -5,6 +5,7 @@ let context = require.context("sprites", true, /\.(png)$/);
 let tokens = {};
 
 context.keys().forEach((path)=>{
+	console.log(path)
 	let unit = context(path)
 	path = path.replace(".png", "");
 	path = path.replace("./", "")

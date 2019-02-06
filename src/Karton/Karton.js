@@ -1,6 +1,9 @@
 import Renderer from "Karton/Renderer"
 import Units from "Karton/Units"
 import Composer from "Karton/Composer"
+import Helpers from "Karton/Helpers"
+
+window.Helpers = Helpers
 
 class Karton {
 

@@ -83,6 +83,10 @@ class Renderer {
 
 	}
 
+	setClearColor (...args) {
+		this.webglRenderer.setClearColor(...args)
+	}
+
 
 }
 

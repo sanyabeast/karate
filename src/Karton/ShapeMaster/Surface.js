@@ -5,8 +5,6 @@ import { CircleBufferGeometry, MeshNormalMaterial, MeshBasicMaterial, Mesh, Doub
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
 
-console.log(Textures)
-
 class Surface extends Unit {
 
 	constructor(...args) {
@@ -26,6 +24,10 @@ class Surface extends Unit {
 			this.composer.renderer.scene.add(fillers)
 		}
 
+		if (description.sky){
+			this.setupSky(description.sky)
+		}
+
 		return elements
 	}
 
@@ -35,15 +37,21 @@ class Surface extends Unit {
 
 	createGround (description) {
 
+		clog(description)
 		var gridSize = this.params.grid.size
 		var radius = Math.sqrt(2 * Math.pow(gridSize, 2))
 
 		var geometry = new CircleBufferGeometry( radius, 64 )
-		var material = new MeshBasicMaterial({ color: 0x5eaa5a, side: DoubleSide })
+
+		switch (description.type) {
+			case "color":
+				var material = new MeshBasicMaterial({ color: description.color, side: DoubleSide })
+			break;
+		}
+
+		
 		var plateMesh = new Mesh(geometry, material);
 		plateMesh.rotation.x = Math.PI / 2
-
-		window.plateMesh = plateMesh
 
 		return plateMesh;
 	}
@@ -66,20 +74,30 @@ class Surface extends Unit {
 
 		switch (description.type) {
 			case "estate":
-				let estateDescription = Units[`estate/${description.name}`]
-				filler = this.composer.createEstate(estateDescription);
+				
+				let estateFillerGroup = this.createEstateFiller(description)
+				fillerGroup.add(estateFillerGroup)
+				// filler = this.composer.createEstate(estateDescription);
 			break;
 		}
+
+
+		return fillerGroup
+	}
+
+	createEstateFiller (description) {
+		let estateDescription = Units[`estate/${description.name}`]
+		let estateFillerGroup = new Group()
 
 		switch (description.location.type){
 			case "everywhere":
 				for (var a = 0; a < 64; a++){
 					for (var b = 0; b < 64; b++){
-						let fillerClone = filler.clone()
+						let filler = this.composer.createEstate(estateDescription)
 						let fuzz = this.getFuzz(description.location.fuzz)
 
-						this.setElementPosition(fillerClone, a, b);
-						fillerGroup.add(fillerClone.elements)
+						this.setElementPosition(filler, a, b);
+						estateFillerGroup.add(filler.elements)
 					}
 				}
 			break;
@@ -87,19 +105,21 @@ class Surface extends Unit {
 				for (var a = 0; a < 64; a++){
 					for (var b = 0; b < 64; b++){
 						if (Math.random() < description.location.probability){
-							let fillerClone = filler.clone()
+							let filler = this.composer.createEstate(estateDescription)
 							let fuzz = this.getFuzz(description.location.fuzz)
-							this.setElementPosition(fillerClone, a+ fuzz, b+fuzz);
-							fillerGroup.add(fillerClone.elements)
+							this.setElementPosition(filler, a+ fuzz, b+fuzz);
+							estateFillerGroup.add(filler.elements)
 						}
 					}
 				}
 			break;
 		}
 
+		return estateFillerGroup;
+	}
 
-
-		return fillerGroup
+	setupSky (description){
+		this.composer.renderer.setClearColor(description.background)
 	}
 }
 

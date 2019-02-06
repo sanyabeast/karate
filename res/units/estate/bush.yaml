@@ -1,9 +1,9 @@
 elements:
   - type: sprite
-    texture: sprites/estate/bush.png
+    texture: estate/forest_bush
     scale:
-      x: 15
-      y: 15
+      x: 0.5
+      y: 0.5
     shaders:
       vertex: default
       fragment: texture

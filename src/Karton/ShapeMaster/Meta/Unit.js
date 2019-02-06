@@ -2,6 +2,7 @@ import { Group, SpriteMaterial, Sprite } from "three"
 import { forEach } from "lodash"
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
+import Helpers from "Karton/Helpers"
 
 class Unit {
 	composer = null;
@@ -66,7 +67,7 @@ class Unit {
 	}
 
 	createSprite (description) {
-		let texture = Textures[description.texture]
+		let texture = Helpers.randValueFromObject(Helpers.filerObjectByRegExp(Textures, description.texture))
 
 		var spriteMaterial = new SpriteMaterial( { map: texture, color: 0xffffff, transparent: true } );
 

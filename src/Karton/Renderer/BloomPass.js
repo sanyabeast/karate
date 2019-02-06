@@ -1,20 +1,24 @@
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-
+import Pass from "Karton/Renderer/Pass"
 import * as THREE from "three"
 import ConvolutionShader from "Karton/Renderer/shaders/ConvolutionShader"
 import CopyShader from "Karton/Renderer/shaders/CopyShader"
 
-class BloomPass  {
+class BloomPass extends Pass {
 	static blurX = new THREE.Vector2( 1, 1 );
 	static blurY = new THREE.Vector2( 1, 0.001953125 );
 
 	constructor ( strength, kernelSize, sigma, resolution ) {
+		super()
+
 		strength = ( strength !== undefined ) ? strength : 1;
 		kernelSize = ( kernelSize !== undefined ) ? kernelSize : 25;
 		sigma = ( sigma !== undefined ) ? sigma : 4.0;
 		resolution = ( resolution !== undefined ) ? resolution : 256;
+
+		this.enabled = true
 
 		// render targets
 

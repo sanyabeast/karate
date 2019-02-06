@@ -5,7 +5,9 @@
  * http://en.wikipedia.org/wiki/Luminosity
  */
 
-THREE.LuminosityHighPassShader = {
+import * as THREE from "three"
+
+let LuminosityHighPassShader = {
 
   shaderID: "luminosityHighPass",
 
@@ -62,3 +64,5 @@ THREE.LuminosityHighPassShader = {
 	].join("\n")
 
 };
+
+export default LuminosityHighPassShader

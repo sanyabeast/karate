@@ -1,9 +1,15 @@
-import { MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
+import { Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
 import tweener from "tweener"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import Unicycle from "unicycle"
-import EffectComposer, { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer'
+import { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer'
+import EffectComposer from "Karton/Renderer/EffectComposer"
 import BloomPass from "Karton/Renderer/BloomPass"
+import UnrealBloomPass from "Karton/Renderer/UnrealBloomPass"
+import { forEach } from "lodash"
+
+import * as THREE from "three"
+window.THREE = THREE
 
 const unicycle = new Unicycle();
 unicycle.start()
@@ -13,6 +19,7 @@ class Renderer {
 	get dom () { return this.webglRenderer.domElement }
 
 	constructor () {
+
 		this.scene = new Scene();
 		this.webglRenderer = new WebGLRenderer({
 			antialias: true,
@@ -56,6 +63,10 @@ class Renderer {
 		this.webglRenderer.setSize(window.innerWidth, window.innerHeight)
 		this.camera.aspect = window.innerWidth/ window.innerHeight
 		this.camera.updateProjectionMatrix()
+
+		forEach(this.passes, (pass)=>{
+			pass.setSize(window.innerWidth, window.innerHeight)
+		})
 	}
 
 	render () {
@@ -99,11 +110,15 @@ class Renderer {
 	setupFX () {
 		this.effectComposer.addPass(new RenderPass(this.scene, this.camera))
 
-		let bloomPass = new BloomPass(2)
-		this.effectComposer.addPass(bloomPass)
+		// let bloomPass = new BloomPass(1)
+		// this.effectComposer.addPass(bloomPass)
 
-		this.passes.bloomPass = bloomPass
-		bloomPass.renderToScreen = false
+		// this.passes.bloomPass = bloomPass
+		// bloomPass.renderToScreen = false
+
+		let unrealBloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), 6, 3, 4)
+		this.effectComposer.addPass(unrealBloomPass)
+		this.passes.unrealBloomPass = unrealBloomPass
 
 		const copyPass = new ShaderPass(CopyShader)
 	    copyPass.renderToScreen = true

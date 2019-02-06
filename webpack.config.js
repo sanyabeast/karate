@@ -60,12 +60,12 @@ let webpackConfig = {
   	resolve : {
   		modules: ["src", "node_modules", "res"],
   		alias : {
-  		    "postal"                      : "postal/postal",
+  		    "postal"                    : "postal/postal",
           "unicycle"                  : "unicycle/unicycle",
           "tweener"                   : "tweener/tweener",
           "todo"                      : "todojs/todo",
           "three"                     : "three.js",
-          "three-effectcomposer"                     : "three-effectcomposer",
+          "three-effectcomposer"      : "three-effectcomposer",
           "file"                      : "requirejs-text/text",
           "dollaclass"                : "dollaclass/dollaclass",
           "hotkeys-js"                : "hotkeys-js/dist/hotkeys.min",

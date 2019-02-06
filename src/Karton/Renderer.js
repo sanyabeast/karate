@@ -2,6 +2,8 @@ import { MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scen
 import tweener from "tweener"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import Unicycle from "unicycle"
+import EffectComposer, { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer'
+import BloomPass from "Karton/Renderer/BloomPass"
 
 const unicycle = new Unicycle();
 unicycle.start()
@@ -16,6 +18,10 @@ class Renderer {
 			antialias: true,
 			// alpha: true
 		})
+
+		this.passes = {}
+
+		this.effectComposer = new EffectComposer(this.webglRenderer)
 
 		this.webglRenderer.setClearColor(0x00bcd4)
 
@@ -39,6 +45,8 @@ class Renderer {
 			this.updateSize()
 		})
 
+		this.setupFX()
+
 		this.updateSize()
 		this.$addTestElements()
 		unicycle.addTask(this.render.bind(this))
@@ -52,7 +60,8 @@ class Renderer {
 
 	render () {
 		this.orbit.update()
-		this.webglRenderer.render(this.scene, this.camera)
+		// this.webglRenderer.render(this.scene, this.camera)
+		this.effectComposer.render()
 	}
 
 	$addTestElements () {
@@ -87,6 +96,19 @@ class Renderer {
 		this.webglRenderer.setClearColor(...args)
 	}
 
+	setupFX () {
+		this.effectComposer.addPass(new RenderPass(this.scene, this.camera))
+
+		let bloomPass = new BloomPass(2)
+		this.effectComposer.addPass(bloomPass)
+
+		this.passes.bloomPass = bloomPass
+		bloomPass.renderToScreen = false
+
+		const copyPass = new ShaderPass(CopyShader)
+	    copyPass.renderToScreen = true
+	    this.effectComposer.addPass(copyPass)
+	}
 
 }
 

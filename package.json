@@ -60,6 +60,7 @@
       "clavis":   "git://github.com/sanyabeast/clavis.git",
       "postal":   "git://github.com/sanyabeast/postal.git",
       "sender":   "git://github.com/sanyabeast/sender.git",
-      "reslist":  "git://github.com/sanyabeast/reslist.git"
+      "reslist":  "git://github.com/sanyabeast/reslist.git",
+      "three-effectcomposer" : "git://github.com/superhighfives/three-effectcomposer-es6.git"
     }
 }

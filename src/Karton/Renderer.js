@@ -94,6 +94,7 @@ class Renderer {
 			orbit.enableZoom = true
 
 		this.orbit = orbit
+		this.orbit.autoRotate = true
 
 		// console.log(BoxBufferGeometry)
 

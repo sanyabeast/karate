@@ -161,7 +161,7 @@ class Renderer {
 		}
 
 		this.passes.filmPass.enabled = false;
-		this.passes.glitchPass.enabled = false;
+		// this.passes.glitchPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
 		this.passes.freiPass.enabled = false;

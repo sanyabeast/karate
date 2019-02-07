@@ -1,8 +1,15 @@
+/**
+ * @author alteredq / http://alteredqualia.com/
+ */
+
 import * as THREE from "three"
-import { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer'
+import CopyShader from "Karton/Renderer/shaders/CopyShader"
+import ShaderPass from "Karton/Renderer/passes/ShaderPass"
+import ClearMaskPass from "Karton/Renderer/passes/ClearMaskPass"
+import MaskPass from "Karton/Renderer/passes/MaskPass"
+import { forEach } from "lodash"
 
 class EffectComposer {
-
 
 	constructor ( renderer, renderTarget ) {
 
@@ -61,12 +68,18 @@ class EffectComposer {
 	}
 
 	addPass ( pass ) {
+
 		this.passes.push( pass );
 
 		var size = this.renderer.getDrawingBufferSize();
-		if (pass.setSize){
-			pass.setSize( size.width, size.height );
-		}
+		pass.setSize( size.width, size.height );
+
+		forEach(this.passes, (pass, index)=>{
+			pass.renderToScreen = false
+		})
+
+		this.passes[this.passes.length - 1].renderToScreen = true
+
 
 	}
 
@@ -118,13 +131,13 @@ class EffectComposer {
 
 			}
 
-			if ( THREE.MaskPass !== undefined ) {
+			if ( MaskPass !== undefined ) {
 
-				if ( pass instanceof THREE.MaskPass ) {
+				if ( pass instanceof MaskPass ) {
 
 					maskActive = true;
 
-				} else if ( pass instanceof THREE.ClearMaskPass ) {
+				} else if ( pass instanceof ClearMaskPass ) {
 
 					maskActive = false;
 
@@ -169,6 +182,8 @@ class EffectComposer {
 		}
 
 	}
+
+
 }
 
 export default EffectComposer

@@ -30,6 +30,9 @@ elements:
   ground:
     type: color
     color: 0x4caf50
+    # type: sprite
+    # texture: surface/foreset_ground_0
+    # repeat: 2000
   sky: 
     background: 0x0ae2ff
 tags:

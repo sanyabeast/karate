@@ -1,4 +1,4 @@
-import Unit from "Karton/ShapeMaster/Meta/Unit"
+import Unit from "Karton/Composer/Meta/Unit"
 
 class Thing extends Unit {
 

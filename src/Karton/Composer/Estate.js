@@ -1,4 +1,4 @@
-import Unit from "Karton/ShapeMaster/Meta/Unit"
+import Unit from "Karton/Composer/Meta/Unit"
 import { Group } from "three"
 import { forEach } from "lodash"
 

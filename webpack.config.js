@@ -4,6 +4,7 @@ const JsDocPlugin = require('jsdoc-webpack4-plugin');
 const jsonfile = require("jsonfile");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require('webpack')
 
 const packageJSON = jsonfile.readFileSync("package.json");
 
@@ -64,7 +65,7 @@ let webpackConfig = {
           "unicycle"                  : "unicycle/unicycle",
           "tweener"                   : "tweener/tweener",
           "todo"                      : "todojs/todo",
-          "three"                     : "three.js",
+          "three"                     : "three.js/",
           "three-effectcomposer"      : "three-effectcomposer",
           "file"                      : "requirejs-text/text",
           "dollaclass"                : "dollaclass/dollaclass",
@@ -84,6 +85,10 @@ let webpackConfig = {
         filename: path.join(__dirname, 'dist', 'index.html'),
         template: path.join(__dirname, 'static', 'index.html'),
         inject: env == "development",
+      }),
+      new webpack.ProvidePlugin({
+        THREE: 'three',
+        // ...
       }),
       new BundleAnalyzerPlugin()
     ],

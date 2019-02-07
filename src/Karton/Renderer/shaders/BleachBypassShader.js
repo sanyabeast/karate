@@ -6,7 +6,7 @@
  * http://developer.download.nvidia.com/shaderlibrary/webpages/shader_library.html#post_bleach_bypass
  */
 
-THREE.BleachBypassShader = {
+export default {
 
 	uniforms: {
 

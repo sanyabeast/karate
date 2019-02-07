@@ -67,7 +67,7 @@ class Unit {
 	}
 
 	createSprite (description) {
-		let texture = Helpers.randValueFromObject(Helpers.filerObjectByRegExp(Textures, description.texture))
+		let texture = this.getSomeTexture(description.texture)
 
 		var spriteMaterial = new SpriteMaterial( { map: texture, color: 0xffffff, transparent: true } );
 
@@ -89,6 +89,16 @@ class Unit {
 
 	getFuzz (fuzz) {
 		return ((Math.random() * fuzz) - (fuzz / 2)) || 0;
+	}
+
+	getSomeTexture (regexp){
+		return Helpers.randValueFromObject(Helpers.filerObjectByRegExp(Textures, regexp))
+	}
+
+	setTextureRepeat (texture, config){
+		texture.wrapS = THREE.RepeatWrapping;
+		texture.wrapT = THREE.RepeatWrapping;
+		texture.repeat.set( config.x || config, config.y || config );
 	}
 }
 

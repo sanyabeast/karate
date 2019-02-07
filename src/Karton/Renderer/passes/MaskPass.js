@@ -2,25 +2,26 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.MaskPass = function ( scene, camera ) {
 
-	THREE.Pass.call( this );
+import * as THREE from "three"
+import Pass from "Karton/Renderer/Pass"
 
-	this.scene = scene;
-	this.camera = camera;
+class MaskPass extends Pass {
 
-	this.clear = true;
-	this.needsSwap = false;
+	constructor ( scene, camera ) {
+		super()
 
-	this.inverse = false;
+		this.scene = scene;
+		this.camera = camera;
 
-};
+		this.clear = true;
+		this.needsSwap = false;
 
-THREE.MaskPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
+		this.inverse = false;
 
-	constructor: THREE.MaskPass,
+	}
 
-	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
+	render ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
 		var context = renderer.context;
 		var state = renderer.state;
@@ -73,25 +74,8 @@ THREE.MaskPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ),
 
 	}
 
-} );
 
 
-THREE.ClearMaskPass = function () {
+}
 
-	THREE.Pass.call( this );
-
-	this.needsSwap = false;
-
-};
-
-THREE.ClearMaskPass.prototype = Object.create( THREE.Pass.prototype );
-
-Object.assign( THREE.ClearMaskPass.prototype, {
-
-	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
-
-		renderer.state.buffers.stencil.setTest( false );
-
-	}
-
-} );
+export default MaskPass

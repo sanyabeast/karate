@@ -2,45 +2,46 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.GlitchPass = function ( dt_size ) {
+import * as THREE from "three"
+import Pass from "Karton/Renderer/Pass"
+import DigitalGlitchShader from "Karton/Renderer/shaders/DigitalGlitchShader"
 
-	THREE.Pass.call( this );
+class GlitchPass extends Pass {
+	constructor ( dt_size ) {
 
-	if ( THREE.DigitalGlitch === undefined ) console.error( "THREE.GlitchPass relies on THREE.DigitalGlitch" );
+		super()
 
-	var shader = THREE.DigitalGlitch;
-	this.uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+		if ( DigitalGlitchShader === undefined ) console.error( "THREE.GlitchPass relies on DigitalGlitchShader" );
 
-	if ( dt_size == undefined ) dt_size = 64;
+		var shader = DigitalGlitchShader;
+		this.uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+
+		if ( dt_size == undefined ) dt_size = 64;
 
 
-	this.uniforms[ "tDisp" ].value = this.generateHeightmap( dt_size );
+		this.uniforms[ "tDisp" ].value = this.generateHeightmap( dt_size );
 
 
-	this.material = new THREE.ShaderMaterial( {
-		uniforms: this.uniforms,
-		vertexShader: shader.vertexShader,
-		fragmentShader: shader.fragmentShader
-	} );
+		this.material = new THREE.ShaderMaterial( {
+			uniforms: this.uniforms,
+			vertexShader: shader.vertexShader,
+			fragmentShader: shader.fragmentShader
+		} );
 
-	this.camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
-	this.scene  = new THREE.Scene();
+		this.camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
+		this.scene  = new THREE.Scene();
 
-	this.quad = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), null );
-	this.quad.frustumCulled = false; // Avoid getting clipped
-	this.scene.add( this.quad );
+		this.quad = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), null );
+		this.quad.frustumCulled = false; // Avoid getting clipped
+		this.scene.add( this.quad );
 
-	this.goWild = false;
-	this.curF = 0;
-	this.generateTrigger();
+		this.goWild = false;
+		this.curF = 0;
+		this.generateTrigger();
 
-};
+	}
 
-THREE.GlitchPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
-
-	constructor: THREE.GlitchPass,
-
-	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
+	render ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
 		this.uniforms[ "tDiffuse" ].value = readBuffer.texture;
 		this.uniforms[ 'seed' ].value = Math.random();//default seeding
@@ -85,15 +86,15 @@ THREE.GlitchPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 
 		}
 
-	},
+	}
 
-	generateTrigger: function() {
+	generateTrigger() {
 
 		this.randX = THREE.Math.randInt( 120, 240 );
 
-	},
+	}
 
-	generateHeightmap: function( dt_size ) {
+	generateHeightmap( dt_size ) {
 
 		var data_arr = new Float32Array( dt_size * dt_size * 3 );
 		var length = dt_size * dt_size;
@@ -112,5 +113,7 @@ THREE.GlitchPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 		return texture;
 
 	}
+}
 
-} );
+
+export default GlitchPass

@@ -1,4 +1,4 @@
-import Unit from "Karton/ShapeMaster/Meta/Unit"
+import Unit from "Karton/Composer/Meta/Unit"
 import { Group } from "three"
 import { forEach } from "lodash"
 import { CircleBufferGeometry, MeshNormalMaterial, MeshBasicMaterial, Mesh, DoubleSide } from "three"
@@ -47,9 +47,17 @@ class Surface extends Unit {
 			case "color":
 				var material = new MeshBasicMaterial({ color: description.color, side: DoubleSide })
 			break;
+			case "sprite":
+				let spriteTexture = this.getSomeTexture(description.texture)
+				if (description.repeat){
+					this.setTextureRepeat(spriteTexture, description.repeat)
+				}
+				var material = new MeshBasicMaterial({ map: spriteTexture, side: DoubleSide })
+			break
 		}
 
-		
+		this.composer.shared.surfaceGridSize = gridSize
+
 		var plateMesh = new Mesh(geometry, material);
 		plateMesh.rotation.x = Math.PI / 2
 

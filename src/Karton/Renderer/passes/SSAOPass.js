@@ -405,3 +405,4 @@ THREE.SSAOPass.OUTPUT = {
 	'Depth': 4,
 	'Normal': 5
 };
+

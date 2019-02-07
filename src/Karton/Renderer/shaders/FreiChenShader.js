@@ -7,7 +7,9 @@
  * aspect: vec2 of (1/width, 1/height)
  */
 
-THREE.FreiChenShader = {
+import * as THREE from "three"
+
+export default {
 
 	uniforms: {
 

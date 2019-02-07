@@ -2,29 +2,30 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
 
-	THREE.Pass.call( this );
+import * as THREE from "three"
+import Pass from "Karton/Renderer/Pass"
 
-	this.scene = scene;
-	this.camera = camera;
+class RenderPass extends Pass {
+	constructor ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
 
-	this.overrideMaterial = overrideMaterial;
+		super()
 
-	this.clearColor = clearColor;
-	this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
+		this.scene = scene;
+		this.camera = camera;
 
-	this.clear = true;
-	this.clearDepth = false;
-	this.needsSwap = false;
+		this.overrideMaterial = overrideMaterial;
 
-};
+		this.clearColor = clearColor;
+		this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
 
-THREE.RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
+		this.clear = true;
+		this.clearDepth = false;
+		this.needsSwap = false;
 
-	constructor: THREE.RenderPass,
+	}
 
-	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
+	render ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
 		var oldAutoClear = renderer.autoClear;
 		renderer.autoClear = false;
@@ -59,5 +60,6 @@ THREE.RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 		this.scene.overrideMaterial = null;
 		renderer.autoClear = oldAutoClear;
 	}
+}
 
-} );
+export default RenderPass

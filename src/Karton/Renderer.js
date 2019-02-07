@@ -2,14 +2,27 @@ import { Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer
 import tweener from "tweener"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import Unicycle from "unicycle"
-import { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer'
+// import { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer'
 import EffectComposer from "Karton/Renderer/EffectComposer"
-import BloomPass from "Karton/Renderer/BloomPass"
-import UnrealBloomPass from "Karton/Renderer/UnrealBloomPass"
+import RenderPass from "Karton/Renderer/passes/RenderPass"
+import ShaderPass from "Karton/Renderer/passes/ShaderPass"
+import GlitchPass from "Karton/Renderer/passes/GlitchPass"
+import DotScreenPass from "Karton/Renderer/passes/DotScreenPass"
+import CopyShader from "Karton/Renderer/shaders/CopyShader"
+import BleachBypassShader from "Karton/Renderer/shaders/BleachBypassShader"
+import FreiChenShader from "Karton/Renderer/shaders/FreiChenShader"
+import BrightnessContrastShader from "Karton/Renderer/shaders/BrightnessContrastShader"
+import BloomPass from "Karton/Renderer/passes/BloomPass"
+import HalftonePass from "Karton/Renderer/passes/HalftonePass"
+import FilmPass from "Karton/Renderer/passes/FilmPass"
+import UnrealBloomPass from "Karton/Renderer/passes/UnrealBloomPass"
 import { forEach } from "lodash"
 
 import * as THREE from "three"
 window.THREE = THREE
+window.tweener = tweener
+
+console.log(RenderPass)
 
 const unicycle = new Unicycle();
 unicycle.start()
@@ -61,6 +74,7 @@ class Renderer {
 
 	updateSize () {
 		this.webglRenderer.setSize(window.innerWidth, window.innerHeight)
+		this.effectComposer.setSize(window.innerWidth, window.innerHeight)
 		this.camera.aspect = window.innerWidth/ window.innerHeight
 		this.camera.updateProjectionMatrix()
 
@@ -108,7 +122,7 @@ class Renderer {
 	}
 
 	setupFX () {
-		this.effectComposer.addPass(new RenderPass(this.scene, this.camera))
+		let renderPass = new RenderPass(this.scene, this.camera)
 
 		// let bloomPass = new BloomPass(1)
 		// this.effectComposer.addPass(bloomPass)
@@ -116,12 +130,52 @@ class Renderer {
 		// this.passes.bloomPass = bloomPass
 		// bloomPass.renderToScreen = false
 
-		let unrealBloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), 6, 3, 4)
-		this.effectComposer.addPass(unrealBloomPass)
-		this.passes.unrealBloomPass = unrealBloomPass
+		// let unrealBloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), 6, 3, 4)
+		// this.effectComposer.addPass(unrealBloomPass)
+		// this.passes.unrealBloomPass = unrealBloomPass
 
-		const copyPass = new ShaderPass(CopyShader)
-	    copyPass.renderToScreen = true
+		let bloomPass = new BloomPass(0)
+		let unrealBloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 )
+		let glitchPass = new GlitchPass()
+		let dotScreenPass = new DotScreenPass()
+		let filmPass = new FilmPass(0.001, 0.5, 50, false )
+		let copyPass = new ShaderPass(CopyShader)
+		let bacPass = new ShaderPass(BrightnessContrastShader)
+		let bleachPass = new ShaderPass(BleachBypassShader)
+		let freiPass = new ShaderPass(FreiChenShader)
+		let halftonePass = new HalftonePass()
+
+		this.passes = { 
+			renderPass, 
+			filmPass, 
+			glitchPass,
+			dotScreenPass,
+			copyPass,
+			bloomPass,
+			unrealBloomPass,
+			bacPass,
+			bleachPass,
+			freiPass,
+			halftonePass
+		}
+
+		this.passes.filmPass.enabled = false;
+		this.passes.glitchPass.enabled = false;
+		this.passes.dotScreenPass.enabled = false;
+		this.passes.unrealBloomPass.enabled = false;
+		this.passes.freiPass.enabled = false;
+
+
+	    this.effectComposer.addPass(renderPass);
+	    this.effectComposer.addPass(filmPass)
+	    this.effectComposer.addPass(glitchPass)
+	    this.effectComposer.addPass(dotScreenPass)
+	    // this.effectComposer.addPass(bloomPass)
+	    this.effectComposer.addPass(unrealBloomPass)
+	    this.effectComposer.addPass(bacPass)
+	    this.effectComposer.addPass(bleachPass)
+	    this.effectComposer.addPass(freiPass)
+	    this.effectComposer.addPass(halftonePass)
 	    this.effectComposer.addPass(copyPass)
 	}
 

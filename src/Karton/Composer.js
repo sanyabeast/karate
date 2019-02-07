@@ -1,8 +1,8 @@
-import Unit 	from "Karton/ShapeMaster/Meta/Unit"
-import Surface 	from "Karton/ShapeMaster/Surface"
-import Estate 	from "Karton/ShapeMaster/Estate"
-import Actor 	from "Karton/ShapeMaster/Actor"
-import Thing 	from "Karton/ShapeMaster/Thing"
+import Unit 	from "Karton/Composer/Meta/Unit"
+import Surface 	from "Karton/Composer/Surface"
+import Estate 	from "Karton/Composer/Estate"
+import Actor 	from "Karton/Composer/Actor"
+import Thing 	from "Karton/Composer/Thing"
 
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
@@ -16,6 +16,7 @@ class Composer {
 
 	constructor (params) {
 		this.renderer = params.renderer
+		this.shared = {}
 	}
 
 	createSurface (description) {

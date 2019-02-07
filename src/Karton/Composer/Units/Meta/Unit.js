@@ -74,9 +74,11 @@ class Unit {
 		var sprite = new Sprite( spriteMaterial );
 
 		if (description.scale){
-			let fuzz = this.getFuzz(description.scale.fuzz)
-			sprite.scale.set(description.scale.x + fuzz, description.scale.y + fuzz, 1)
-			sprite.position.y = (description.scale.y + fuzz) / 2
+			let fuzzFactor = description.scale.fuzz
+			let scale = this.fuzz(description.scale.x, fuzzFactor);
+
+			sprite.scale.set(scale, scale,1)
+			sprite.position.y = (sprite.scale.y) / 2
 			
 		}
 
@@ -87,8 +89,12 @@ class Unit {
 		element.position.set(x - 32, element.position.y, y - 32)
 	}
 
-	getFuzz (fuzz) {
-		return ((Math.random() * fuzz) - (fuzz / 2)) || 0;
+	getFuzz (fuzzFactor) {
+		return ((Math.random() * fuzzFactor) - (fuzzFactor / 2)) || 0;
+	}
+
+	fuzz(value, fuzzFactor) {
+		return value + (((Math.random() * fuzzFactor) - (fuzzFactor / 2)) || 0)
 	}
 
 	getSomeTexture (regexp){

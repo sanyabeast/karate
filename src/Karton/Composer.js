@@ -1,8 +1,8 @@
-import Unit 	from "Karton/Composer/Meta/Unit"
-import Surface 	from "Karton/Composer/Surface"
-import Estate 	from "Karton/Composer/Estate"
-import Actor 	from "Karton/Composer/Actor"
-import Thing 	from "Karton/Composer/Thing"
+import Unit 	from "Karton/Composer/Units/Meta/Unit"
+import Surface 	from "Karton/Composer/Units/Surface"
+import Estate 	from "Karton/Composer/Units/Estate"
+import Actor 	from "Karton/Composer/Units/Actor"
+import Thing 	from "Karton/Composer/Units/Thing"
 
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"

@@ -1,4 +1,4 @@
-import { Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
+import { Fog, FogExp2, Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
 import tweener from "tweener"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import Unicycle from "unicycle"
@@ -27,6 +27,8 @@ console.log(RenderPass)
 const unicycle = new Unicycle();
 unicycle.start()
 
+let someCameraPos1 = `{"metadata":{"version":4.5,"type":"Object","generator":"Object3D.toJSON"},"object":{"uuid":"904E7E4A-ED00-4AD8-A9BC-A287468FDCFC","type":"PerspectiveCamera","layers":1,"matrix":[-0.3381079798909248,0,-0.9411073232815044,0,-0.03599214393096904,0.9992684129262038,0.012930758028755962,0,0.9404188213287368,0.03824446270959795,-0.3378606244632891,0,32.881671623560685,1.3372146917048149,-11.813270700427177,1],"fov":45,"zoom":1,"near":0.1,"far":100000,"focus":10,"aspect":1.4063926940639269,"filmGauge":35,"filmOffset":0}}`
+
 class Renderer {
 
 	get dom () { return this.webglRenderer.domElement }
@@ -39,13 +41,21 @@ class Renderer {
 			// alpha: true
 		})
 
+		this.fog = new FogExp2( 0xd99126, 0.03, 80 )
+		this.scene.fog = this.fog
+
+		tweener.fromTo(this.fog, 1.3333, { density: 0.03 },  { density: 0.035, repeat: -1, yoyo: true, ease: "easeInOutQuad" })
+
 		this.passes = {}
 
 		this.effectComposer = new EffectComposer(this.webglRenderer)
 
-		this.webglRenderer.setClearColor(0x00bcd4)
+		this.webglRenderer.setClearColor(0xd99126)
 
 		this.camera = new PerspectiveCamera(45, 1, 0.1, 100000)
+
+		
+		// this.camera.fromJSON(JSON.parse(someCameraPos1))
 
 		// this.ambientLight = new AmbientLight(0xeeeeee)
 		// this.ambientLight.position.set(0, 100, 0)
@@ -59,7 +69,21 @@ class Renderer {
 		this.scene.add(this.pointLight)
 		this.scene.add(this.camera)
 
+
+
 		this.camera.position.set(0, 0, 200)
+
+		this.camera.position.set(
+			4.8409511692456295,
+			0.8436333012180357,
+			1.478066511668653
+		)
+
+		this.camera.rotation.set(
+		    -2.928495741566725,
+		    -0.6803072396778582,
+		    -3.006312674275912
+		)
 
 		window.addEventListener("resize", ()=>{
 			this.updateSize()
@@ -95,6 +119,7 @@ class Renderer {
 
 		this.orbit = orbit
 		this.orbit.autoRotate = true
+		this.orbit.autoRotateSpeed = 0.3
 
 		// console.log(BoxBufferGeometry)
 
@@ -114,7 +139,7 @@ class Renderer {
 		// }
 
 		var axesHelper = new AxesHelper( 20 );
-		this.scene.add( axesHelper );
+		// this.scene.add( axesHelper );
 
 	}
 
@@ -154,6 +179,14 @@ class Renderer {
 			repeat: -1
 		})
 
+		// tweener.fromTo(bacPass.material.uniforms.contrast, 15, {
+		// 	value: 0
+		// }, {
+		// 	value: 1,
+		// 	yoyo: true,
+		// 	repeat: -1
+		// })
+
 		halftonePass.material.uniforms.radius.value = 1;
 
 		this.passes = { 
@@ -170,11 +203,15 @@ class Renderer {
 			halftonePass
 		}
 
-		this.passes.filmPass.enabled = false;
-		// this.passes.glitchPass.enabled = false;
+		// this.passes.filmPass.enabled = false;
+		this.passes.glitchPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
+		this.passes.halftonePass.enabled = false;
+		this.passes.bacPass.enabled = false;
 		this.passes.freiPass.enabled = false;
+
+		this.passes.halftonePass.uniforms.radius.value = 0.02851
 
 
 	    this.effectComposer.addPass(renderPass);

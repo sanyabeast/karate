@@ -7,16 +7,16 @@ elements:
           probability: 0.8
           fuzz: 0.8
     - type: estate
+      name: flower
+      location:
+          type: random
+          probability: 0.4
+          fuzz: 0.8
+    - type: estate
       name: bush
       location:
           type: random
-          probability: 0.01
-          fuzz: 0.8
-    - type: estate
-      name: banana
-      location:
-          type: random
-          probability: 0.01
+          probability: 0.5
           fuzz: 0.8
     - type: estate
       name: tree
@@ -34,7 +34,7 @@ elements:
     # texture: surface/foreset_ground_0
     # repeat: 2000
   sky: 
-    background: 0x0ae2ff
+    background: 0xd99126
 tags:
   - forest
 params:

@@ -1,4 +1,4 @@
-import Unit from "Karton/Composer/Meta/Unit"
+import Unit from "Karton/Composer/Units/Meta/Unit"
 import { Group } from "three"
 import { forEach } from "lodash"
 

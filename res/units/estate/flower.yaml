@@ -1,9 +1,9 @@
 elements:
   - type: sprite
-    texture: default_banana
+    texture: estate/flower
     scale:
-      x: 0.8
-      y: 0.8
+      x: 0.1
+      y: 0.1
       fuzz: 0.05
     shaders:
       vertex: default

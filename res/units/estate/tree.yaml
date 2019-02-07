@@ -2,9 +2,9 @@ elements:
   - type: sprite
     texture: estate/forest_tree
     scale:
-      x: 1
-      y: 1
-      fuzz: 0.6
+      x: 2.4
+      y: 2.4
+      fuzz: 1.6
     shaders:
       vertex: default
       fragment: texture

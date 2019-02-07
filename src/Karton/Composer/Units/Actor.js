@@ -1,4 +1,4 @@
-import Unit from "Karton/Composer/Meta/Unit"
+import Unit from "Karton/Composer/Units/Meta/Unit"
 
 class Actor extends Unit {
 

@@ -146,6 +146,16 @@ class Renderer {
 		let freiPass = new ShaderPass(FreiChenShader)
 		let halftonePass = new HalftonePass()
 
+		tweener.fromTo(bleachPass.material.uniforms.opacity, 30, {
+			value: 0
+		}, {
+			value: 3,
+			yoyo: true,
+			repeat: -1
+		})
+
+		halftonePass.material.uniforms.radius.value = 1;
+
 		this.passes = { 
 			renderPass, 
 			filmPass, 
@@ -169,7 +179,6 @@ class Renderer {
 
 	    this.effectComposer.addPass(renderPass);
 	    this.effectComposer.addPass(filmPass)
-	    this.effectComposer.addPass(glitchPass)
 	    this.effectComposer.addPass(dotScreenPass)
 	    // this.effectComposer.addPass(bloomPass)
 	    this.effectComposer.addPass(unrealBloomPass)
@@ -177,6 +186,7 @@ class Renderer {
 	    this.effectComposer.addPass(bleachPass)
 	    this.effectComposer.addPass(freiPass)
 	    this.effectComposer.addPass(halftonePass)
+	    this.effectComposer.addPass(glitchPass)
 	    this.effectComposer.addPass(copyPass)
 	}
 

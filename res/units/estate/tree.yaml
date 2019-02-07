@@ -1,6 +1,6 @@
 elements:
   - type: sprite
-    texture: estate/forest_tree
+    texture: tree
     scale:
       x: 2.4
       y: 2.4

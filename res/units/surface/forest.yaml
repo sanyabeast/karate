@@ -22,7 +22,7 @@ elements:
       name: tree
       location:
           type: random
-          probability: 0.05
+          probability: 0.035
           fuzz: 0.6
   landscape:
     type: sprite

@@ -207,7 +207,7 @@ class Renderer {
 		this.passes.glitchPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
-		this.passes.halftonePass.enabled = false;
+		// this.passes.halftonePass.enabled = false;
 		this.passes.bacPass.enabled = false;
 		this.passes.freiPass.enabled = false;
 

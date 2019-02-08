@@ -245,7 +245,7 @@ class Renderer {
 		this.passes.techPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
-		this.passes.halftonePass.enabled = false;
+		// this.passes.halftonePass.enabled = false;
 		// this.passes.bacPass.enabled = false;
 		this.passes.freiPass.enabled = false;
 
@@ -259,7 +259,7 @@ class Renderer {
 	    this.effectComposer.addPass(bacPass)
 	    this.effectComposer.addPass(bleachPass)
 	 //    this.effectComposer.addPass(freiPass)
-	    // this.effectComposer.addPass(halftonePass)
+	    this.effectComposer.addPass(halftonePass)
 	 //    this.effectComposer.addPass(glitchPass)
 	 //    this.effectComposer.addPass(techPass)
 	    // this.effectComposer.addPass(ssaoPass)

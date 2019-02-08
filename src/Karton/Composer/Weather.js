@@ -23,7 +23,7 @@ class Weather {
 	constructor (renderer) {
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 10,
+			duration: 30,
 			yoyo: true
 		}
 

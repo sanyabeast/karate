@@ -1,10 +1,15 @@
 name: night
-brightness: -0.15
-contrast: -0.2
-saturation: -0.666
+saturation: -0.444
+fog:
+  density: 0.09
+  color: 0x595959
 color:
   mul:
     x: 0.75
     y: 0.75
     z: 0.666
 bleach: 0.666
+sky:
+  color: 0x5e5d83
+tags:
+  - night

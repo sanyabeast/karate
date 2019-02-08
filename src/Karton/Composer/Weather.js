@@ -6,6 +6,9 @@ class Weather {
 
 	static weatherData = null;
 
+	get fog () { return this.renderer.scene.fog }
+	get sky () { return this.renderer.sky }
+
 	get colorPow () { return this.renderer.passes.colorCorPass.material.uniforms.powRGB.value }
 	get colorMul () { return this.renderer.passes.colorCorPass.material.uniforms.mulRGB.value }
 	get colorAdd () { return this.renderer.passes.colorCorPass.material.uniforms.addRGB.value }
@@ -20,33 +23,33 @@ class Weather {
 
 	get weatherData () { return Weather.weatherData }
 
+	set addTween (t){ this.tweens.push(t) }
+
 	constructor (renderer) {
+		window.weather = this
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 30,
-			yoyo: true
+			duration: 1,
+			yoyo: true,
+			ease: "easeInOutQuint" 
 		}
 
-		this.defaultWeather = {
-			color:{
-				pow: {x: 1, y: 1, z: 1},
-				mul: {x: 1, y: 1, z: 1},
-				add: {x: 0, y: 0, z: 0},
-			},
-			fog: {
-				density: 0.02
-			},
-			saturation: 0,
-			hue: 0,
-			contrast: 0,
-			brightness: 0,
-			bleach: 0
-		}
+		this.tweens = []
+
+		this.defaultWeather = this.weatherData.default;
 
 		this.prevRandWeather = null;
+		this.ease("default", { duration: 0.25 })
 
+		this.ease("winter", {
+			onComplete: ()=>{ this.randWeather() }
+		})
+	}
 
-		this.ease("cold-wind")
+	$killAllTweens () {  
+		forEach(this.tweens, (t)=>{
+			t.kill()
+		})
 	}
 
 	randWeather () {
@@ -58,125 +61,134 @@ class Weather {
 
 		this.prevRandWeather = weather.name
 
-		this.ease(weather)
+		this.ease(weather, {
+			onComplete: ()=>{ 
+				setTimeout(()=>{
+					this.randWeather()
+				}, 5000)
+			}
+		})
 	}
 
-	easeWeatherParam (weatherParam, type){
+	easeWeatherParam (weatherParam, type, customEasingSettings){
+		customEasingSettings = customEasingSettings || {}
+		let easeSettings = { ...this.$easeSettings, ...customEasingSettings }
+
 		switch(type){
 			case "color":
 				forEach(weatherParam, (colorParam, type)=>{
 					switch(type){
 						case "mul":
-							tweener.to(
+							this.addTween = tweener.to(
 								this.colorMul, 
-								this.$easeSettings.duration, 
-								{...colorParam, ...this.$easeSettings}
+								easeSettings.duration, 
+								{...colorParam, easeSettings}
 							)
 						break;
 						case "pow":
-							tweener.to(
+							this.addTween = tweener.to(
 								this.colorPow, 
-								this.$easeSettings.duration, 
-								{...colorParam, ...this.$easeSettings}
+								easeSettings.duration, 
+								{...colorParam, easeSettings}
 							)
 						break;
 						case "add":
-							tweener.to(
+							this.addTween = tweener.to(
 								this.colorAdd, 
-								this.$easeSettings.duration, 
-								{...colorParam, ...this.$easeSettings}
+								easeSettings.duration, 
+								{...colorParam, easeSettings}
 							)
 						break;
 					}
 				})
 			break;
 			case "fog":
-				tweener.to(this.renderer.scene.fog, this.$easeSettings.duration, {
-					...weatherParam.fog, 
-					...this.$easeSettings,
-					onComplete: ()=>{
-						this.randWeather()
-					}
+				let newFogColor = new THREE.Color().setHex(weatherParam.color)
+
+				this.addTween = tweener.to(this.fog.color, easeSettings.duration, {
+					...newFogColor, 
+					easeSettings,
+					onComplete: easeSettings.onComplete
+				})
+
+				this.addTween = tweener.to(this.fog, easeSettings.duration, {
+					density: weatherParam.density,
+					easeSettings,
 				})
 			break;
 			case "sky":
-				let clearColor = this.renderer.webglRenderer.getClearColor().clone();
-				let newClearColor = new THREE.Color()
-				newClearColor.setHex(params.sky)
-				tweener.to(clearColor, this.$easeSettings.duration, {
-					r: newClearColor.r,
-					g: newClearColor.g,
-					b: newClearColor.b, 
-					onUpdate: ()=>{
-						this.renderer.webglRenderer.setClearColor(clearColor)
-						this.renderer.fog.color.set(newClearColor)
-					},
-					...this.$easeSettings,
+				let newColor = new THREE.Color().setHex(weatherParam.color)
+
+				this.addTween = tweener.to(this.sky.color, easeSettings.duration, {
+					...newColor,
+					easeSettings,
 				})
 			break;
 			case "hue":
-				tweener.to(
+				this.addTween = tweener.to(
 					this.hue, 
-					this.$easeSettings.duration, 
+					easeSettings.duration, 
 					{
 						value: weatherParam,
-						...this.$easeSettings
+						easeSettings
 					}
 				)
 			break;
 			case "saturation":
-				tweener.to(
+				this.addTween = tweener.to(
 					this.saturation, 
-					this.$easeSettings.duration, 
+					easeSettings.duration, 
 					{
 						value: weatherParam,
-						...this.$easeSettings
+						easeSettings
 					}
 				)
 			break;
 			case "contrast":
-				tweener.to(
+				this.addTween = tweener.to(
 					this.contrast, 
-					this.$easeSettings.duration, 
+					easeSettings.duration, 
 					{
 						value: weatherParam,
-						...this.$easeSettings
+						easeSettings
 					}
 				)
 			break;
 			case "brightness":
-				tweener.to(
+				this.addTween = tweener.to(
 					this.brightness, 
-					this.$easeSettings.duration, 
+					easeSettings.duration, 
 					{
 						value: weatherParam,
-						...this.$easeSettings
+						easeSettings
 					}
 				)
 			break;
 			case "bleach":
-				tweener.to(
+				this.addTween = tweener.to(
 					this.bleach, 
-					this.$easeSettings.duration, 
+					easeSettings.duration, 
 					{
 						value: weatherParam,
-						...this.$easeSettings
+						easeSettings
 					}
 				)
 			break;
 		}
 	}
 
-	ease (params, onComplete) {
+	ease (params, customEasingSettings) {
 
-		if (typeof params == "string") return this.ease(this.weatherData[params])
+		if (typeof params == "string") return this.ease(this.weatherData[params], customEasingSettings)
+
+		this.$killAllTweens()
 
 		this.currentWeather = params
 
 		params = Helpers.deepMerge(this.defaultWeather, params)
 
 		//esnext
-		forEach(params, (...args)=>{ this.easeWeatherParam(...args) })
+		forEach(params, (weatherParam, type)=>{ this.easeWeatherParam(weatherParam, type, customEasingSettings) })
 
 	}
 

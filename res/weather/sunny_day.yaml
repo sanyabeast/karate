@@ -1,24 +1,24 @@
-name: default
+name: fog
 fog:
-  density: 0.0375
-  color: 0x345441
+  density: 0.03
+  color: 0xd18f00
 color:
   pow:
-    x: 1
+    x: 0.8
     y: 1
     z: 1
   mul:
-    x: 1
+    x: 1.1
     y: 1
-    z: 1
+    z: 0.75
   add:
     x: 0
     y: 0
     z: 0
-saturation: 0
+saturation: 0.1
 hue: 0
-contrast: 0
-brightness: 0
+contrast: 0.05
+brightness: 0.05
 bleach: 0
 sky: 
   color: 0xbeedfe

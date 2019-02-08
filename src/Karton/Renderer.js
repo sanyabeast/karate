@@ -1,4 +1,5 @@
-import { Fog, FogExp2, Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
+import { SphereBufferGeometry, Fog, FogExp2, Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
+import Sky from "Karton/Renderer/Sky"
 import tweener from "tweener"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import Unicycle from "unicycle"
@@ -62,7 +63,7 @@ class Renderer {
 
 		this.webglRenderer.setClearColor(0xd99126)
 
-		this.camera = new PerspectiveCamera(45, 1, 0.1, 100000)
+		this.camera = new PerspectiveCamera(25, 1, 0.1, 100000)
 
 		
 		// this.camera.fromJSON(JSON.parse(someCameraPos1))
@@ -99,6 +100,7 @@ class Renderer {
 			this.updateSize()
 		})
 
+		this.createSky();
 		this.setupFX()
 
 		this.updateSize()
@@ -250,26 +252,65 @@ class Renderer {
 		this.passes.freiPass.enabled = false;
 
 	    this.effectComposer.addPass(renderPass);
-		// this.effectComposer.addPass(colorifyPass)
-		this.effectComposer.addPass(rgbsPass)
-	 //    this.effectComposer.addPass(filmPass)
-	 //    this.effectComposer.addPass(dotScreenPass)
-	 //    // this.effectComposer.addPass(bloomPass)
-	 //    this.effectComposer.addPass(unrealBloomPass)
 	    this.effectComposer.addPass(bacPass)
-	    this.effectComposer.addPass(bleachPass)
-	 //    this.effectComposer.addPass(freiPass)
-	    this.effectComposer.addPass(halftonePass)
-	 //    this.effectComposer.addPass(glitchPass)
-	 //    this.effectComposer.addPass(techPass)
-	    // this.effectComposer.addPass(ssaoPass)
 		this.effectComposer.addPass(hsPass)
 		this.effectComposer.addPass(colorCorPass)
+		this.effectComposer.addPass(bleachPass)
+	    this.effectComposer.addPass(halftonePass)
+		this.effectComposer.addPass(rgbsPass)
+		// this.effectComposer.addPass(colorifyPass)
+	 // //    this.effectComposer.addPass(filmPass)
+	 // //    this.effectComposer.addPass(dotScreenPass)
+	 // //    // this.effectComposer.addPass(bloomPass)
+	 // //    this.effectComposer.addPass(unrealBloomPass)
+	 //    this.effectComposer.addPass(bleachPass)
+	 // //    this.effectComposer.addPass(freiPass)
+	 // //    this.effectComposer.addPass(glitchPass)
+	 // //    this.effectComposer.addPass(techPass)
+	 //    // this.effectComposer.addPass(ssaoPass)
 		// this.effectComposer.addPass(gammacorPass)
 		// this.effectComposer.addPass(volumePass)
 		// this.effectComposer.addPass(lumiPass)
 		// this.effectComposer.addPass(pxPass)
 	    this.effectComposer.addPass(copyPass)
+	}
+
+	createSky () {
+		// Add Sky
+		let sky = new Sky();
+		sky.scale.setScalar( 300 );
+		sky.geometry.translate(0, 0.5, 0)
+		sky.scale.y = 300;
+
+		this.scene.add( sky );
+
+		// Add Sun Helper
+		let sunSphere = new THREE.Mesh(
+			new THREE.SphereBufferGeometry( 1, 16, 8 ),
+			new THREE.MeshBasicMaterial( { color: 0xffffff } )
+		);
+
+		sunSphere.position.y = 10;
+		sunSphere.visible = false;
+		this.scene.add( sunSphere );
+
+		/// GUI
+
+		var effectController  = {
+			turbidity: 10,
+			rayleigh: 2,
+			mieCoefficient: 0.005,
+			mieDirectionalG: 0.8,
+			luminance: 1,
+			inclination: 0.49, // elevation / inclination
+			azimuth: 0.25, // Facing front,
+			sun: ! true
+		};
+
+		this.sky = sky;
+		this.sunSphere = sunSphere
+
+		var distance = 400000;
 	}
 
 }

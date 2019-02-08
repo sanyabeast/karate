@@ -25,6 +25,22 @@ class Helpers {
 	static randIntegerFromTo (min, max) {
 		return Math.floor(Math.random()*(max-min+1)+min);
 	}
+
+	static deepMerge (target, source) {
+		let result = {...target}
+
+		forEach(source, (value, key)=>{
+			if (typeof value == "object" && value !== null){
+				result[key] = this.deepMerge(result[key] || null, value)
+			} else {
+				if (value !== undefined){
+					result[key] = value;
+				}
+			}
+		})
+
+		return result
+	}
 }
 
 export default Helpers

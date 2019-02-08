@@ -17,7 +17,7 @@ class Composer {
 
 	constructor (params) {
 		this.renderer = params.renderer
-		this.weather = new Weather(this.renderer.passes.colorCorPass, this.renderer.passes.bacPass, this.renderer.passes.hsPass)
+		this.weather = new Weather(this.renderer)
 		this.shared = {}
 	}
 

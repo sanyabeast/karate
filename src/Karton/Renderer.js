@@ -54,7 +54,7 @@ class Renderer {
 		this.fog = new FogExp2( 0xd99126, 0.03, 80 )
 		this.scene.fog = this.fog
 
-		tweener.fromTo(this.fog, 1.3333, { density: 0.03 },  { density: 0.035, repeat: -1, yoyo: true, ease: "easeInOutQuad" })
+		// tweener.fromTo(this.fog, 1.3333, { density: 0.03 },  { density: 0.035, repeat: -1, yoyo: true, ease: "easeInOutQuad" })
 
 		this.passes = {}
 
@@ -129,7 +129,7 @@ class Renderer {
 
 		this.orbit = orbit
 		this.orbit.autoRotate = true
-		this.orbit.autoRotateSpeed = 0.3
+		this.orbit.autoRotateSpeed = 0.4
 
 		console.log(BoxBufferGeometry)
 
@@ -191,13 +191,13 @@ class Renderer {
 		let halftonePass = new HalftonePass()
 		let ssaoPass = new SSAOPass(this.scene, this.camera)
 
-		tweener.fromTo(bleachPass.material.uniforms.opacity, 30, {
-			value: 0
-		}, {
-			value: 3,
-			yoyo: true,
-			repeat: -1
-		})
+		// tweener.fromTo(bleachPass.material.uniforms.opacity, 30, {
+		// 	value: 0
+		// }, {
+		// 	value: 3,
+		// 	yoyo: true,
+		// 	repeat: -1
+		// })
 
 		// tweener.fromTo(bacPass.material.uniforms.contrast, 15, {
 		// 	value: 0
@@ -241,11 +241,11 @@ class Renderer {
 
 		// this.passes.filmPass.enabled = false;
 		this.passes.glitchPass.enabled = false;
-		this.passes.bleachPass.enabled = false;
+		// this.passes.bleachPass.enabled = false;
 		this.passes.techPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
-		// this.passes.halftonePass.enabled = false;
+		this.passes.halftonePass.enabled = false;
 		// this.passes.bacPass.enabled = false;
 		this.passes.freiPass.enabled = false;
 
@@ -257,9 +257,9 @@ class Renderer {
 	 //    // this.effectComposer.addPass(bloomPass)
 	 //    this.effectComposer.addPass(unrealBloomPass)
 	    this.effectComposer.addPass(bacPass)
-	 //    this.effectComposer.addPass(bleachPass)
+	    this.effectComposer.addPass(bleachPass)
 	 //    this.effectComposer.addPass(freiPass)
-	    this.effectComposer.addPass(halftonePass)
+	    // this.effectComposer.addPass(halftonePass)
 	 //    this.effectComposer.addPass(glitchPass)
 	 //    this.effectComposer.addPass(techPass)
 	    // this.effectComposer.addPass(ssaoPass)

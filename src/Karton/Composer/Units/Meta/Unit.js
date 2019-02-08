@@ -77,7 +77,7 @@ class Unit {
 			let fuzzFactor = description.scale.fuzz
 			let scale = this.fuzz(description.scale.x, fuzzFactor);
 
-			sprite.scale.set(scale, scale,1)
+			sprite.scale.set(sprite.scale.x* scale, sprite.scale.y * scale,1)
 			sprite.position.y = (sprite.scale.y) / 2
 			
 		}

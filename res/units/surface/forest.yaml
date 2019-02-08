@@ -7,6 +7,12 @@ elements:
           probability: 0.8
           fuzz: 0.8
     - type: estate
+      name: kitty
+      location:
+          type: random
+          probability: 0.08
+          fuzz: 0.8
+    - type: estate
       name: flower
       location:
           type: random

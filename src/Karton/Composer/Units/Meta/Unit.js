@@ -3,6 +3,7 @@ import { forEach } from "lodash"
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
 import Helpers from "Karton/Helpers"
+import tweener from "tweener"
 
 class Unit {
 	composer = null;
@@ -78,8 +79,30 @@ class Unit {
 			let scale = this.fuzz(description.scale.x, fuzzFactor);
 
 			sprite.scale.set(sprite.scale.x* scale, sprite.scale.y * scale,1)
-			sprite.position.y = (sprite.scale.y) / 2
 			
+		}
+
+		sprite.center.y = 0
+
+		if (description.texture == "tree"){
+			// tweener.fromTo(sprite.material, 2 + (Math.random() * 2), {
+			// 	rotation: -Math.PI / 64
+			// }, {
+			// 	rotation: Math.PI / 64,
+			// 	repeat: -1,
+			// 	yoyo: true,
+			// 	ease: "linear"
+			// })
+
+		} else if (description.texture == "kitty"){
+			tweener.fromTo(sprite.position, 0.2 + (Math.random() * 0.2), {
+				y: 0
+			}, {
+				y: 0.08,
+				repeat: -1,
+				yoyo: true,
+				ease: "easeOutQuad"
+			})
 		}
 
 		return sprite;

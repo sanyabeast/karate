@@ -7,7 +7,9 @@
  * https://github.com/McNopper/OpenGL/blob/master/Example28/shader/ssao.frag.glsl
  */
 
-THREE.SSAOShader = {
+import * as THREE from "three"
+
+export default {
 
 	defines: {
 		"PERSPECTIVE_CAMERA": 1,
@@ -175,121 +177,3 @@ THREE.SSAOShader = {
 
 };
 
-THREE.SSAODepthShader = {
-
-	defines: {
-		"PERSPECTIVE_CAMERA": 1
-	},
-
-	uniforms: {
-
-		"tDepth": { value: null },
-		"cameraNear": { value: null },
-		"cameraFar": { value: null },
-
-	},
-
-	vertexShader: [
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-
-		"	vUv = uv;",
-		"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-		"}"
-
-	].join( "\n" ),
-
-	fragmentShader: [
-
-		"uniform sampler2D tDepth;",
-
-		"uniform float cameraNear;",
-		"uniform float cameraFar;",
-
-		"varying vec2 vUv;",
-
-		"#include <packing>",
-
-		"float getLinearDepth( const in vec2 screenPosition ) {",
-
-		"	#if PERSPECTIVE_CAMERA == 1",
-
-		"		float fragCoordZ = texture2D( tDepth, screenPosition ).x;",
-		"		float viewZ = perspectiveDepthToViewZ( fragCoordZ, cameraNear, cameraFar );",
-		"		return viewZToOrthographicDepth( viewZ, cameraNear, cameraFar );",
-
-		"	#else",
-
-		"		return texture2D( depthSampler, coord ).x;",
-
-		"	#endif",
-
-		"}",
-
-		"void main() {",
-
-		"	float depth = getLinearDepth( vUv );",
-		"	gl_FragColor = vec4( vec3( 1.0 - depth ), 1.0 );",
-
-		"}"
-
-	].join( "\n" )
-
-};
-
-THREE.SSAOBlurShader = {
-
-	uniforms: {
-
-		"tDiffuse": { value: null },
-		"resolution": { value: new THREE.Vector2() }
-
-	},
-
-	vertexShader: [
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-
-		"	vUv = uv;",
-		"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-		"}"
-
-	].join( "\n" ),
-
-	fragmentShader: [
-
-		"uniform sampler2D tDiffuse;",
-
-		"uniform vec2 resolution;",
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-
-		"	vec2 texelSize = ( 1.0 / resolution );",
-		"	float result = 0.0;",
-
-		"	for ( int i = - 2; i <= 2; i ++ ) {",
-
-		"		for ( int j = - 2; j <= 2; j ++ ) {",
-
-		"			vec2 offset = ( vec2( float( i ), float( j ) ) ) * texelSize;",
-		"			result += texture2D( tDiffuse, vUv + offset ).r;",
-
-		"		}",
-
-		"	}",
-
-		"	gl_FragColor = vec4( vec3( result / ( 5.0 * 5.0 ) ), 1.0 );",
-
-		"}"
-
-	].join( "\n" )
-
-};

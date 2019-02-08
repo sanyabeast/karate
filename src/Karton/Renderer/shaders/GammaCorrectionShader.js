@@ -5,7 +5,7 @@
  * http://en.wikipedia.org/wiki/gamma_correction
  */
 
-THREE.GammaCorrectionShader = {
+export default {
 
 	uniforms: {
 

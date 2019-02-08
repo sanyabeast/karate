@@ -4,7 +4,7 @@
  * Pixelation shader
  */
 
-THREE.PixelShader = {
+export default {
 
 	uniforms: {
 

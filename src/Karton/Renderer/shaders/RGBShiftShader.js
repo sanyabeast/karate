@@ -10,7 +10,7 @@
  * angle: shift angle in radians
  */
 
-THREE.RGBShiftShader = {
+export default {
 
 	uniforms: {
 

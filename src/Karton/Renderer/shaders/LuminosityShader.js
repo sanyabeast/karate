@@ -5,7 +5,7 @@
  * http://en.wikipedia.org/wiki/Luminosity
  */
 
-THREE.LuminosityShader = {
+export default {
 
 	uniforms: {
 

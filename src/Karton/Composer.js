@@ -3,6 +3,7 @@ import Surface 	from "Karton/Composer/Units/Surface"
 import Estate 	from "Karton/Composer/Units/Estate"
 import Actor 	from "Karton/Composer/Units/Actor"
 import Thing 	from "Karton/Composer/Units/Thing"
+import Weather  from "Karton/Composer/Weather"
 
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
@@ -16,6 +17,7 @@ class Composer {
 
 	constructor (params) {
 		this.renderer = params.renderer
+		this.weather = new Weather(this.renderer.passes.colorCorPass, this.renderer.passes.bacPass, this.renderer.passes.hsPass)
 		this.shared = {}
 	}
 

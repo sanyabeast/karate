@@ -4,7 +4,9 @@
  * Color correction
  */
 
-THREE.ColorCorrectionShader = {
+import * as THREE from "three"
+
+export default {
 
 	uniforms: {
 

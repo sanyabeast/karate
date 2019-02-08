@@ -12,10 +12,20 @@ import CopyShader from "Karton/Renderer/shaders/CopyShader"
 import BleachBypassShader from "Karton/Renderer/shaders/BleachBypassShader"
 import FreiChenShader from "Karton/Renderer/shaders/FreiChenShader"
 import BrightnessContrastShader from "Karton/Renderer/shaders/BrightnessContrastShader"
+import HueSaturationShader from "Karton/Renderer/shaders/HueSaturationShader"
+import PixelShader from "Karton/Renderer/shaders/PixelShader"
+import TechnicolorShader from "Karton/Renderer/shaders/TechnicolorShader"
+import LuminosityShader from "Karton/Renderer/shaders/LuminosityShader"
+import RGBShiftShader from "Karton/Renderer/shaders/RGBShiftShader"
+import VolumeShader from "Karton/Renderer/shaders/VolumeShader"
+import ColorifyShader from "Karton/Renderer/shaders/ColorifyShader"
+import ColorCorrectionShader from "Karton/Renderer/shaders/ColorCorrectionShader"
+import GammaCorrectionShader from "Karton/Renderer/shaders/GammaCorrectionShader"
 import BloomPass from "Karton/Renderer/passes/BloomPass"
 import HalftonePass from "Karton/Renderer/passes/HalftonePass"
 import FilmPass from "Karton/Renderer/passes/FilmPass"
 import UnrealBloomPass from "Karton/Renderer/passes/UnrealBloomPass"
+import SSAOPass from "Karton/Renderer/passes/SSAOPass"
 import { forEach } from "lodash"
 
 import * as THREE from "three"
@@ -121,7 +131,7 @@ class Renderer {
 		this.orbit.autoRotate = true
 		this.orbit.autoRotateSpeed = 0.3
 
-		// console.log(BoxBufferGeometry)
+		console.log(BoxBufferGeometry)
 
 		// for (var a = 0; a < 2; a++){
 		// 	for (var b = 0; b < 2; b++){
@@ -167,9 +177,19 @@ class Renderer {
 		let filmPass = new FilmPass(0.001, 0.5, 50, false )
 		let copyPass = new ShaderPass(CopyShader)
 		let bacPass = new ShaderPass(BrightnessContrastShader)
+		let hsPass = new ShaderPass(HueSaturationShader)
+		let pxPass = new ShaderPass(PixelShader)
+		let techPass = new ShaderPass(TechnicolorShader)
 		let bleachPass = new ShaderPass(BleachBypassShader)
+		let lumiPass = new ShaderPass(LuminosityShader)
+		let rgbsPass = new ShaderPass(RGBShiftShader)
+		let volumePass = new ShaderPass(VolumeShader)
+		let colorifyPass = new ShaderPass(ColorifyShader)
+		let gammacorPass = new ShaderPass(GammaCorrectionShader)
+		let colorCorPass = new ShaderPass(ColorCorrectionShader)
 		let freiPass = new ShaderPass(FreiChenShader)
 		let halftonePass = new HalftonePass()
+		let ssaoPass = new SSAOPass(this.scene, this.camera)
 
 		tweener.fromTo(bleachPass.material.uniforms.opacity, 30, {
 			value: 0
@@ -188,6 +208,12 @@ class Renderer {
 		// })
 
 		halftonePass.material.uniforms.radius.value = 1;
+		halftonePass.material.uniforms.blending.value = 0.25;
+		halftonePass.material.uniforms.blendingMode.value = 6;
+		halftonePass.material.uniforms.shape.value = 6;
+
+		rgbsPass.material.uniforms.amount.value = 0.003
+		rgbsPass.material.uniforms.angle.value = Math.PI / 2
 
 		this.passes = { 
 			renderPass, 
@@ -200,30 +226,49 @@ class Renderer {
 			bacPass,
 			bleachPass,
 			freiPass,
-			halftonePass
+			halftonePass,
+			techPass,
+			hsPass,
+			pxPass,
+			lumiPass,
+			rgbsPass,
+			volumePass,
+			colorifyPass,
+			ssaoPass,
+			gammacorPass,
+			colorCorPass
 		}
 
 		// this.passes.filmPass.enabled = false;
 		this.passes.glitchPass.enabled = false;
+		this.passes.bleachPass.enabled = false;
+		this.passes.techPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
 		// this.passes.halftonePass.enabled = false;
-		this.passes.bacPass.enabled = false;
+		// this.passes.bacPass.enabled = false;
 		this.passes.freiPass.enabled = false;
 
-		this.passes.halftonePass.uniforms.radius.value = 0.02851
-
-
 	    this.effectComposer.addPass(renderPass);
-	    this.effectComposer.addPass(filmPass)
-	    this.effectComposer.addPass(dotScreenPass)
-	    // this.effectComposer.addPass(bloomPass)
-	    this.effectComposer.addPass(unrealBloomPass)
+		// this.effectComposer.addPass(colorifyPass)
+		this.effectComposer.addPass(rgbsPass)
+	 //    this.effectComposer.addPass(filmPass)
+	 //    this.effectComposer.addPass(dotScreenPass)
+	 //    // this.effectComposer.addPass(bloomPass)
+	 //    this.effectComposer.addPass(unrealBloomPass)
 	    this.effectComposer.addPass(bacPass)
-	    this.effectComposer.addPass(bleachPass)
-	    this.effectComposer.addPass(freiPass)
+	 //    this.effectComposer.addPass(bleachPass)
+	 //    this.effectComposer.addPass(freiPass)
 	    this.effectComposer.addPass(halftonePass)
-	    this.effectComposer.addPass(glitchPass)
+	 //    this.effectComposer.addPass(glitchPass)
+	 //    this.effectComposer.addPass(techPass)
+	    // this.effectComposer.addPass(ssaoPass)
+		this.effectComposer.addPass(hsPass)
+		this.effectComposer.addPass(colorCorPass)
+		// this.effectComposer.addPass(gammacorPass)
+		// this.effectComposer.addPass(volumePass)
+		// this.effectComposer.addPass(lumiPass)
+		// this.effectComposer.addPass(pxPass)
 	    this.effectComposer.addPass(copyPass)
 	}
 

@@ -6,7 +6,9 @@
  * This is not the only approach, therefore it's marked 1.
  */
 
-THREE.VolumeRenderShader1 = {
+import * as THREE from "three"
+
+export default {
 	uniforms: {
         "u_size": { value: new THREE.Vector3( 1, 1, 1 ) },
         "u_renderstyle": { value: 0 },

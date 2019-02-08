@@ -7,7 +7,7 @@
  * Demo here: http://charliehoey.com/technicolor_shader/shader_test.html
  */
 
-THREE.TechnicolorShader = {
+export default {
 
 	uniforms: {
 

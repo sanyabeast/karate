@@ -1,25 +1,17 @@
 Arguments: 
-  H:\Apps\NodeJS\node.exe H:\Apps\Yarn\bin\yarn.js install
+  C:\Projects\emsdk\node\8.9.1_64bit\bin\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js run start
 
 PATH: 
-  H:\Apps\cmder\bin;H:\Apps\cmder\vendor\conemu-maximus5\ConEmu\Scripts;H:\Apps\cmder\vendor\conemu-maximus5;H:\Apps\cmder\vendor\conemu-maximus5\ConEmu;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Python27\;C:\Python27\Scripts;C:\ProgramData\Boxstarter;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;F:\Apps\WDK\Windows Performance Toolkit\;H:\Apps\NodeJS\;H:\Apps\Yarn\bin\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;F:\Apps\Git\cmd;F:\Apps\Git\mingw64\bin;F:\Apps\Git\usr\bin;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Users\agvrn\AppData\Local\Microsoft\WindowsApps;C:\Users\agvrn\AppData\Local\GitHubDesktop\bin;H:\Apps\Sublime Text 3;H:\Apps\php-7.2.11-nts-Win32-VC15-x64;C:\Users\agvrn\AppData\Roaming\npm;C:\Users\agvrn\AppData\Local\Yarn\bin;C:\Users\agvrn\AppData\Local\Programs\Microsoft VS Code\bin;F:\Apps\Git\mingw64;H:\Apps\cmder
+  C:\Users\user\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\cmd;C:\ConEmuPack.161206\ConEmu\Scripts;C:\ConEmuPack.161206;C:\ConEmuPack.161206\ConEmu;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Projects\emsdk;C:\Projects\emsdk\clang\e1.37.36_64bit;C:\Projects\emsdk\node\8.9.1_64bit\bin;C:\Projects\emsdk\python\2.7.13.1_64bit\python-2.7.13.amd64;C:\Projects\emsdk\java\8.152_64bit\bin;C:\Projects\emsdk\emscripten\1.37.36;C:\Python27;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Users\user\AppData\Local\Microsoft\WindowsApps;C:\Users\user\AppData\Roaming\npm;C:\Program Files\Sublime Text 3;C:\Program Files (x86)\php-7.2.3-nts-Win32-VC15-x64;C:\Users\user\AppData\Local\Yarn\bin;C:\Users\user\AppData\Local\GitHubDesktop\bin;C:\adb;C:\Program Files\PuTTY;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\user\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\user\AppData\Local\Programs\Python\Python37-32;C:\Users\user\AppData\Local\Microsoft\WindowsApps;C:\Users\user\AppData\Roaming\npm;C:\Program Files\Sublime Text 3;C:\Program Files (x86)\php-7.2.3-nts-Win32-VC15-x64;C:\Users\user\AppData\Local\Yarn\bin;C:\Users\user\AppData\Local\GitHubDesktop\bin;C:\Users\user\AppData\Local\Microsoft\WindowsApps;C:\Users\user\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
-  1.10.1
+  1.5.1
 
 Node version: 
-  11.0.0
+  8.9.1
 
 Platform: 
   win32 x64
-
-Trace: 
-  SyntaxError: H:\Projects\karton\package.json: Unexpected token } in JSON at position 1849
-      at JSON.parse (<anonymous>)
-      at H:\Apps\Yarn\lib\cli.js:1136:59
-      at Generator.next (<anonymous>)
-      at step (H:\Apps\Yarn\lib\cli.js:98:30)
-      at H:\Apps\Yarn\lib\cli.js:109:13
 
 npm manifest: 
   {
@@ -32,8 +24,7 @@ npm manifest:
     	},
     	"license": "MIT",
     	"scripts": {
-    	    "setup": "yarn install && node scripts/install_git_packages.js && yarn run reslist",
-    	    "reslist": "node ./node_modules/reslist/reslist.js ./scripts/reslist.config.json",
+    	    "setup": "yarn install && node scripts/install_git_packages.js",
     	    "start": "cross-env NODE_ENV=development node scripts/server.js",
     	    "build": "cross-env NODE_ENV=production webpack"
     	},
@@ -76,7 +67,7 @@ npm manifest:
     	  "copy-webpack-plugin": "latest",
     	  "node-sass-magic-importer": "latest",
     	  "stats.js": "latest",
-        "lodash"
+        "lodash": "latest"
     	},
       "gitDependencies" : {
         "three.js": "git://github.com/mrdoob/three.js.git",
@@ -85,7 +76,8 @@ npm manifest:
         "clavis":   "git://github.com/sanyabeast/clavis.git",
         "postal":   "git://github.com/sanyabeast/postal.git",
         "sender":   "git://github.com/sanyabeast/sender.git",
-        "reslist":  "git://github.com/sanyabeast/reslist.git"
+        "reslist":  "git://github.com/sanyabeast/reslist.git",
+        "three-effectcomposer" : "git://github.com/superhighfives/three-effectcomposer-es6.git"
       }
   }
 
@@ -4609,7 +4601,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.tail/-/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
     integrity sha1-0jM6NtnncXyK0vfKyv7HwytERmQ=
   
-  lodash@^4.0.0, lodash@^4.11.2, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@~4.17.10:
+  lodash@^4.0.0, lodash@^4.11.2, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@latest, lodash@~4.17.10:
     version "4.17.11"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
     integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -7713,3 +7705,19 @@ Lockfile:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/ylru/-/ylru-1.2.1.tgz#f576b63341547989c1de7ba288760923b27fe84f"
     integrity sha512-faQrqNMzcPCHGVC2aaOINk13K+aaBDUPjGWl0teOXywElLjyVAB6Oe2jj62jHYtwsU49jXhScYbvPENK+6zAvQ==
+
+Trace: 
+  Error: Command failed.
+  Exit code: 1
+  Command: C:\WINDOWS\system32\cmd.exe
+  Arguments: /d /s /c cross-env NODE_ENV=development node scripts/server.js
+  Directory: C:\Projects\karton
+  Output:
+  
+      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)

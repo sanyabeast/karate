@@ -4,7 +4,9 @@
  * Colorify shader
  */
 
-THREE.ColorifyShader = {
+import * as THREE from "three"
+
+export default {
 
 	uniforms: {
 

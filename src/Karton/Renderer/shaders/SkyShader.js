@@ -9,7 +9,7 @@ export default {
 		"sunPosition": { value: new THREE.Vector3() },
 		"skyColor": { value: new THREE.Color().setHex(0xf44336) },
 
-	},
+	}, 
 
 	vertexShader: [
 		'uniform vec3 sunPosition;',

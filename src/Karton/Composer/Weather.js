@@ -29,7 +29,7 @@ class Weather {
 		window.weather = this
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 1,
+			duration: 2.5,
 			yoyo: true,
 			ease: "easeInOutQuint" 
 		}
@@ -65,7 +65,7 @@ class Weather {
 			onComplete: ()=>{ 
 				setTimeout(()=>{
 					this.randWeather()
-				}, 5000)
+				}, 10000)
 			}
 		})
 	}

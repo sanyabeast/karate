@@ -131,7 +131,7 @@ class Renderer {
 
 		this.orbit = orbit
 		this.orbit.autoRotate = true
-		this.orbit.autoRotateSpeed = 0.4
+		this.orbit.autoRotateSpeed = 0.2
 
 		console.log(BoxBufferGeometry)
 

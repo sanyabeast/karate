@@ -1,4 +1,4 @@
-import { SphereBufferGeometry, Fog, FogExp2, Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
+import { Color, SphereBufferGeometry, Fog, FogExp2, Pass, MeshLambertMaterial, PointLight, MeshPhongMaterial, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, SphereGeometry, BoxBufferGeometry, MeshBasicMaterial, Mesh, AxesHelper, MeshNormalMaterial, HemisphereLight } from "three"
 import Sky from "Karton/Renderer/Sky"
 import tweener from "tweener"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
@@ -45,16 +45,36 @@ class Renderer {
 	get dom () { return this.webglRenderer.domElement }
 
 	constructor () {
+		let _this = this
 
+		this.fog = new FogExp2( 0xFFFFFF, 0.001, 80 )
+		this.camera = new PerspectiveCamera(25, 1, 0.1, 100000)
+
+
+		this.state = {
+			fog: {
+				density: 0.1
+				// get density(){
+				// 	return _this.fog.density * _this.camera.position.y
+				// },
+				// set density(v){
+				// 	_this.fog.density = v / _this.camera.position.y
+				// }
+			}
+		}
+
+		
 		this.scene = new Scene();
 		this.webglRenderer = new WebGLRenderer({
 			antialias: true,
 			// alpha: true
 		})
 
-		this.fog = new FogExp2( 0xd99126, 0.03, 80 )
-		this.scene.fog = this.fog
+		
 
+		this.state.fog.color = this.fog.color;
+
+		this.scene.fog = this.fog
 		// tweener.fromTo(this.fog, 1.3333, { density: 0.03 },  { density: 0.035, repeat: -1, yoyo: true, ease: "easeInOutQuad" })
 
 		this.passes = {}
@@ -63,7 +83,7 @@ class Renderer {
 
 		this.webglRenderer.setClearColor(0xd99126)
 
-		this.camera = new PerspectiveCamera(25, 1, 0.1, 100000)
+		
 
 		
 		// this.camera.fromJSON(JSON.parse(someCameraPos1))
@@ -122,6 +142,7 @@ class Renderer {
 	render () {
 		this.orbit.update()
 		// this.webglRenderer.render(this.scene, this.camera)
+		this.scene.fog.density = this.state.fog.density / (Math.pow(this.camera.position.y, 0.75));
 		this.effectComposer.render()
 	}
 
@@ -132,8 +153,6 @@ class Renderer {
 		this.orbit = orbit
 		this.orbit.autoRotate = true
 		this.orbit.autoRotateSpeed = 0.2
-
-		console.log(BoxBufferGeometry)
 
 		// for (var a = 0; a < 2; a++){
 		// 	for (var b = 0; b < 2; b++){

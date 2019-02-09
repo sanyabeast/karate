@@ -1,0 +1,27 @@
+name: default
+fog:
+  density: 0.05
+  color: 0x00ff71
+color:
+  pow:
+    x: 1
+    y: 1
+    z: 1
+  mul:
+    x: 1.1
+    y: 1
+    z: 0.24
+  add:
+    x: 0.05
+    y: 0
+    z: 0
+saturation: 0
+hue: 1.45
+contrast: 0
+brightness: 0
+bleach: 0.85
+sky: 
+  color: 0xb6bec9
+tags:
+  - season-fall
+  - time-daytime

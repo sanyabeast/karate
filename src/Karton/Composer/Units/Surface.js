@@ -39,7 +39,7 @@ class Surface extends Unit {
 
 		clog(description)
 		var gridSize = this.params.grid.size
-		var radius = Math.sqrt(2 * Math.pow(gridSize, 2))
+		var radius = Math.sqrt(2 * Math.pow(gridSize, 2)) * 2
 
 		var geometry = new CircleBufferGeometry( radius, 64 )
 

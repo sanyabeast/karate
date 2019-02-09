@@ -6,30 +6,25 @@ class Weather {
 
 	static weatherData = null;
 
-	get fog () { return this.renderer.scene.fog }
+	get fog () { return this.renderer.state.fog }
 	get sky () { return this.renderer.sky }
-
 	get colorPow () { return this.renderer.passes.colorCorPass.material.uniforms.powRGB.value }
 	get colorMul () { return this.renderer.passes.colorCorPass.material.uniforms.mulRGB.value }
 	get colorAdd () { return this.renderer.passes.colorCorPass.material.uniforms.addRGB.value }
-
 	get saturation () { return this.renderer.passes.hsPass.material.uniforms.saturation }
 	get hue () { return this.renderer.passes.hsPass.material.uniforms.hue }
-
 	get brightness () { return this.renderer.passes.bacPass.material.uniforms.brightness }
 	get contrast () { return this.renderer.passes.bacPass.material.uniforms.contrast }
-
 	get bleach () { return this.renderer.passes.bleachPass.material.uniforms.opacity }
-
 	get weatherData () { return Weather.weatherData }
-
 	set addTween (t){ this.tweens.push(t) }
 
 	constructor (renderer) {
 		window.weather = this
+
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 2.5,
+			duration: 0,
 			yoyo: true,
 			ease: "easeInOutQuint" 
 		}
@@ -39,9 +34,9 @@ class Weather {
 		this.defaultWeather = this.weatherData.default;
 
 		this.prevRandWeather = null;
-		this.ease("default", { duration: 0.25 })
+		this.ease("default", { duration: 0 })
 
-		this.ease("winter", {
+		this.ease("trippy", {
 			onComplete: ()=>{ this.randWeather() }
 		})
 	}
@@ -65,7 +60,7 @@ class Weather {
 			onComplete: ()=>{ 
 				setTimeout(()=>{
 					this.randWeather()
-				}, 10000)
+				}, 7500)
 			}
 		})
 	}

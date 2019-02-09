@@ -24,9 +24,9 @@ class Weather {
 
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 0,
+			duration: 0.25,
 			yoyo: true,
-			ease: "easeInOutQuint" 
+			ease: "easeInOutBack" 
 		}
 
 		this.tweens = []

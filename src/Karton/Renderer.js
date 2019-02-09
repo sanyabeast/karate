@@ -93,7 +93,7 @@ class Renderer {
 		// this.ambientLight.intensity = 0.2
 		this.hemisphereLight = new HemisphereLight( 0xff9800, 0x673ab7, 0.75 );
 		this.pointLight = new PointLight( 0xff0000, 2, 100 )
-		this.pointLight.position.set(0, 150, 0)
+		// this.pointLight.position.set(0, 150, 0)
 
 		// this.scene.add(this.ambientLight)
 		this.scene.add(this.hemisphereLight)
@@ -106,7 +106,7 @@ class Renderer {
 
 		this.camera.position.set(
 			4.8409511692456295,
-			0.8436333012180357,
+			0.236333012180357,
 			1.478066511668653
 		)
 

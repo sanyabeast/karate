@@ -96,8 +96,8 @@ class Renderer {
 		// this.pointLight.position.set(0, 150, 0)
 
 		// this.scene.add(this.ambientLight)
-		this.scene.add(this.hemisphereLight)
-		this.scene.add(this.pointLight)
+		// this.scene.add(this.hemisphereLight)
+		// this.scene.add(this.pointLight)
 		this.scene.add(this.camera)
 
 
@@ -105,9 +105,9 @@ class Renderer {
 		this.camera.position.set(0, 0, 200)
 
 		this.camera.position.set(
-			4.8409511692456295,
-			0.236333012180357,
-			1.478066511668653
+			12.712250925745124,
+			1.2419620909446498,
+			9.06338476247759
 		)
 
 		this.camera.rotation.set(

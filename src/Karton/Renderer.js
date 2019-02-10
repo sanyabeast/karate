@@ -48,12 +48,12 @@ class Renderer {
 		let _this = this
 
 		this.fog = new FogExp2( 0xFFFFFF, 0.001, 80 )
-		this.camera = new PerspectiveCamera(25, 1, 0.1, 100000)
+		this.camera = new PerspectiveCamera(35, 1, 0.1, 100000)
 
 
 		this.state = {
 			fog: {
-				density: 0.1
+				density: 1
 				// get density(){
 				// 	return _this.fog.density * _this.camera.position.y
 				// },
@@ -152,7 +152,7 @@ class Renderer {
 
 		this.orbit = orbit
 		this.orbit.autoRotate = true
-		this.orbit.autoRotateSpeed = 0.2
+		this.orbit.autoRotateSpeed = 0.075
 
 		// for (var a = 0; a < 2; a++){
 		// 	for (var b = 0; b < 2; b++){
@@ -233,7 +233,7 @@ class Renderer {
 		halftonePass.material.uniforms.blendingMode.value = 6;
 		halftonePass.material.uniforms.shape.value = 6;
 
-		rgbsPass.material.uniforms.amount.value = 0.003
+		rgbsPass.material.uniforms.amount.value = 0.001
 		rgbsPass.material.uniforms.angle.value = Math.PI / 2
 
 		this.passes = { 
@@ -263,7 +263,7 @@ class Renderer {
 		// this.passes.filmPass.enabled = false;
 		this.passes.glitchPass.enabled = false;
 		// this.passes.bleachPass.enabled = false;
-		this.passes.techPass.enabled = false;
+		// this.passes.techPass.enabled = false;
 		this.passes.dotScreenPass.enabled = false;
 		this.passes.unrealBloomPass.enabled = false;
 		// this.passes.halftonePass.enabled = false;
@@ -271,12 +271,12 @@ class Renderer {
 		this.passes.freiPass.enabled = false;
 
 	    this.effectComposer.addPass(renderPass);
+		this.effectComposer.addPass(rgbsPass)
 	    this.effectComposer.addPass(bacPass)
 		this.effectComposer.addPass(hsPass)
 		this.effectComposer.addPass(colorCorPass)
 		this.effectComposer.addPass(bleachPass)
 	    this.effectComposer.addPass(halftonePass)
-		this.effectComposer.addPass(rgbsPass)
 		// this.effectComposer.addPass(colorifyPass)
 	 // //    this.effectComposer.addPass(filmPass)
 	 // //    this.effectComposer.addPass(dotScreenPass)

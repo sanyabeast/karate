@@ -1,0 +1,26 @@
+name: default
+fog:
+  density: 0.03
+  color: 0xBDBDBD
+color:
+  pow:
+    x: 1
+    y: 1.6
+    z: 0.7
+  mul:
+    x: 0.85
+    y: 0.95
+    z: 1
+  add:
+    x: 0
+    y: 0
+    z: 0
+saturation: 0
+hue: 0
+contrast: -0.25
+brightness: 0
+bleach: 0.3
+sky: 
+  color: 0xdcdcdc
+ground:
+  color: 0xFFFFFF1

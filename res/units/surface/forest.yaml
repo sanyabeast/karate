@@ -7,12 +7,18 @@ elements:
           probability: 0.8
           fuzz: 0.8
     - type: estate
+      name: rock
+      location:
+          type: random
+          probability: 0.3
+          fuzz: 0.8
+    - type: estate
       name: kitty
       location:
           type: random
-          probability: 0.08
+          probability: 0.02
           fuzz: 0.8
-    - type: estate
+    - type: estate 
       name: flower
       location:
           type: random
@@ -22,13 +28,19 @@ elements:
       name: bush
       location:
           type: random
-          probability: 0.5
+          probability: 0.3
           fuzz: 0.8
     - type: estate
       name: tree
       location:
           type: random
           probability: 0.035
+          fuzz: 0.6
+    - type: estate
+      name: house
+      location:
+          type: random
+          probability: 0.005
           fuzz: 0.6
   landscape:
     type: sprite

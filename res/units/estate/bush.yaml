@@ -1,6 +1,7 @@
 elements:
   - type: sprite
     texture: bush
+    shadow: 1
     scale:
       x: 0.4
       y: 0.4

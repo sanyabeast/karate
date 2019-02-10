@@ -22,3 +22,5 @@ brightness: 0
 bleach: 0
 sky: 
   color: 0xbeedfe
+ground:
+  color: 0x4caf50

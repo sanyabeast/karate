@@ -18,6 +18,8 @@ class Karton {
 
 		let forset = window.forest = this.composer.createSurface(Units["surface/forest"])
 
+		this.composer.setSurface(forest)
+
 		clog(forest)
 		
 

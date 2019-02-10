@@ -16,6 +16,7 @@ class Surface extends Unit {
 		
 		if (description.ground){
 			let ground = this.createGround(description.ground)
+			this.ground = ground;
 			this.composer.renderer.scene.add(ground)
 		}
 
@@ -84,7 +85,7 @@ class Surface extends Unit {
 			case "estate":
 				
 				let estateFillerGroup = this.createEstateFiller(description)
-				fillerGroup.add(estateFillerGroup)
+				estateFillerGroup && fillerGroup.add(estateFillerGroup)
 				// filler = this.composer.createEstate(estateDescription);
 			break;
 		}
@@ -95,7 +96,7 @@ class Surface extends Unit {
 
 	createEstateFiller (description) {
 		let estateDescription = Units[`estate/${description.name}`]
-		let estateFillerGroup = new Group()
+		let estateFillerGroup = this.composer.getUniMesh(`estate/${description.name}`)
 
 		switch (description.location.type){
 			case "everywhere":
@@ -104,7 +105,12 @@ class Surface extends Unit {
 						let filler = this.composer.createEstate(estateDescription)
 						let fuzzFactor = description.location.fuzz;
 						this.setElementPosition(filler, this.fuzz(a, fuzzFactor), this.fuzz(b, fuzzFactor));
-						estateFillerGroup.add(filler.elements)
+						
+						if (!(estateFillerGroup instanceof Group)){
+							estateFillerGroup.merge(filler.elements)
+						} else {
+							estateFillerGroup.meraddge(filler.elements)
+						}
 					}
 				}
 			break;
@@ -115,7 +121,12 @@ class Surface extends Unit {
 							let filler = this.composer.createEstate(estateDescription)
 							let fuzzFactor = description.location.fuzz;
 							this.setElementPosition(filler, this.fuzz(a, fuzzFactor), this.fuzz(b, fuzzFactor));
-							estateFillerGroup.add(filler.elements)
+							
+							if (!(estateFillerGroup instanceof Group)){
+								estateFillerGroup.merge(filler.elements)
+							} else {
+								estateFillerGroup.add(filler.elements)
+							}
 						}
 					}
 				}

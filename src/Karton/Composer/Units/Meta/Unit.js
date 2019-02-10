@@ -85,15 +85,6 @@ class Unit {
 		sprite.center.y = 0
 
 		if (description.texture == "tree"){
-			tweener.fromTo(sprite.material, 6 + (Math.random() * 6), {
-				rotation: -Math.PI / 96
-			}, {
-				rotation: Math.PI / 96,
-				repeat: -1,
-				yoyo: true,
-				ease: "easeOutQuad"
-			})
-
 		} else if (description.texture == "kitty"){
 			tweener.fromTo(sprite.position, 0.2 + (Math.random() * 0.2), {
 				y: 0
@@ -105,7 +96,41 @@ class Unit {
 			})
 		}
 
+		if (description.shadow === 1){
+			this.createShadowSprite(sprite)
+		}
+
 		return sprite;
+	}
+
+	createShadowSprite (sprite) {
+		return sprite
+		let shadow = this.createSprite({
+			texture: "shadow_1",
+			shadow: 0
+		})
+
+		// shadow.position.y = {
+		// 	valueOf : function(){
+		// 		return -sprite.position.y -0.5
+		// 	}
+		// }
+		shadow.material.opacity = 0.05
+		shadow.scale.set(5, 5, 5)
+		// shadow.geometry.translate(0, 1, 0)
+
+		// debugger;
+
+		shadow.position.y = 0
+		shadow.position.z =0
+		
+		let group = new THREE.Group()
+		group.add(sprite)
+		group.add(shadow)
+
+		console.log(group)
+
+		return group;
 	}
 
 	setElementPosition (element, x, y) {

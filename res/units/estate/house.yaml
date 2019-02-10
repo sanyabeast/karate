@@ -1,11 +1,11 @@
 elements:
   - type: sprite
-    texture: tree
+    texture: house
     shadow: 1
     scale:
-      x: 2.4
-      y: 2.4
-      fuzz: 1.6
+      x: 1.4
+      y: 1.4
+      fuzz: 0.7
     shaders:
       vertex: default
       fragment: texture

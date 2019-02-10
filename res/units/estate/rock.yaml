@@ -1,11 +1,10 @@
 elements:
   - type: sprite
-    texture: tree
-    shadow: 1
+    texture: rock
     scale:
-      x: 2.4
-      y: 2.4
-      fuzz: 1.6
+      x: 0.1
+      y: 0.1
+      fuzz: 0.05
     shaders:
       vertex: default
       fragment: texture

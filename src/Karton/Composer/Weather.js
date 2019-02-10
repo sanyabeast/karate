@@ -22,9 +22,11 @@ class Weather {
 	constructor (renderer) {
 		window.weather = this
 
+		this.surface = null;
+
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 0.25,
+			duration: 1,
 			yoyo: true,
 			ease: "easeInOutBack" 
 		}
@@ -34,9 +36,12 @@ class Weather {
 		this.defaultWeather = this.weatherData.default;
 
 		this.prevRandWeather = null;
+		
+	}
+	init () {
 		this.ease("default", { duration: 0 })
 
-		this.ease("trippy", {
+		this.ease("winter", {
 			onComplete: ()=>{ this.randWeather() }
 		})
 	}
@@ -60,7 +65,7 @@ class Weather {
 			onComplete: ()=>{ 
 				setTimeout(()=>{
 					this.randWeather()
-				}, 7500)
+				}, 5000)
 			}
 		})
 	}
@@ -118,6 +123,16 @@ class Weather {
 					...newColor,
 					easeSettings,
 				})
+			break;
+			case "ground":
+				{
+					let newColor = new THREE.Color().setHex(weatherParam.color)
+
+					this.addTween = tweener.to(this.surface.ground.material.color, easeSettings.duration, {
+						...newColor,
+						easeSettings,
+					})
+				}
 			break;
 			case "hue":
 				this.addTween = tweener.to(
@@ -182,10 +197,16 @@ class Weather {
 
 		params = Helpers.deepMerge(this.defaultWeather, params)
 
+		console.log(this.surface)
+
 		//esnext
 		forEach(params, (weatherParam, type)=>{ this.easeWeatherParam(weatherParam, type, customEasingSettings) })
 
 	}
+
+	setSurface (surface) {
+		this.surface = surface;
+	} 
 
 	static importWeatherData () {
 		var context = require.context("weather", true, /\.(yaml)$/);

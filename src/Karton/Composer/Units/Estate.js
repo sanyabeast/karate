@@ -14,10 +14,19 @@ class Estate extends Unit  {
 		forEach(description, (element)=>{
 			switch (element.type){
 				case "sprite":
-					let sprite = this.createSprite(element)
-					group.add(sprite)
-					itemsCount++
+					{
+						let sprite = this.createSprite(element)
+						group.add(sprite)
+						itemsCount++
+					}
 				break
+				case "shader":
+					{
+						let sprite = this.createShaderMesh(element)
+						group.add(sprite)
+						itemsCount++
+					}
+				break;
 			}
 		})
 

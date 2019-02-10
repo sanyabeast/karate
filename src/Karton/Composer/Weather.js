@@ -196,9 +196,7 @@ class Weather {
 		this.currentWeather = params
 
 		params = Helpers.deepMerge(this.defaultWeather, params)
-
-		console.log(this.surface)
-
+		
 		//esnext
 		forEach(params, (weatherParam, type)=>{ this.easeWeatherParam(weatherParam, type, customEasingSettings) })
 

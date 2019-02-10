@@ -5,10 +5,7 @@ elements:
     scale:
       x: 2.4
       y: 2.4
-      fuzz: 1.6
-    shaders:
-      vertex: default
-      fragment: texture
+      fuzz: 1.6   
 tags:
   - plant
   - bush

@@ -1,0 +1,22 @@
+elements:
+  - type: shader
+    texture: tree
+    shadow: 1
+    scale:
+      x: 2.4
+      y: 2.4
+      fuzz: 1.6
+    shader:
+      vertex: default.vert
+      fragment: color.frag
+      uniforms: 
+        texture: "tree"
+        diffuse: 0xFF0000
+        opacity: 1
+    
+tags:
+  - plant
+  - bush
+  - green
+  - combustible
+  - destructible]

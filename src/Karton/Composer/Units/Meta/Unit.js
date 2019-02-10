@@ -4,6 +4,8 @@ import Units from "Karton/Units"
 import Textures from "Karton/Textures"
 import Helpers from "Karton/Helpers"
 import tweener from "tweener"
+import GlobalStorage from "Karton/GlobalStorage"
+import Shaders from "Karton/Shaders"
 
 class Unit {
 	composer = null;
@@ -101,6 +103,30 @@ class Unit {
 		}
 
 		return sprite;
+	}
+
+	createShaderMesh (description) {
+		let geometry = new THREE.PlaneGeometry(1, 1, 1)
+		let fragmentShaderContainer = Shaders[description.shader.fragment]
+		let vertexShaderContainer = Shaders[description.shader.vertex]
+
+		let uniforms = {
+			...fragmentShaderContainer.collectUniforms(GlobalStorage, description.shader.uniforms),
+			...vertexShaderContainer.collectUniforms(GlobalStorage, description.shader.uniforms)
+		}
+
+		let material = new THREE.ShaderMaterial({
+			fragmentShader: fragmentShaderContainer.code,
+			vertexShader: vertexShaderContainer.code,
+			uniforms: uniforms,
+			side: THREE.DoubleSide
+		})
+
+
+		clog(uniforms, geometry, material)
+		let object = THREE.Mesh(geometry, material)
+
+		return object
 	}
 
 	createShadowSprite (sprite) {

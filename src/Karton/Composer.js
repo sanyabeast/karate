@@ -9,6 +9,9 @@ import UniMesh from "Karton/Composer/Units/Meta/UniMesh"
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
 
+import GlobalStorage from "Karton/GlobalStorage"
+import Shaders from "Karton/Shaders"
+
 class Composer {
 	static Unit = Unit;
 	static Surface = Surface;

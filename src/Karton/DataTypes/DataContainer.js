@@ -19,4 +19,4 @@ class DataContainer {
 	get () { return this.valueOf() }
 }
 
-export defaulta DataContainer
+export default DataContainer

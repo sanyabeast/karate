@@ -1,6 +1,8 @@
 import { forEach } from "lodash"
 import * as THREE from "three"
 import GlobalStorage from "Karton/GlobalStorage"
+import Textures from "Karton/Textures"
+import Helpers from "Karton/Helpers"
 
 
 class ShaderContainer {
@@ -64,9 +66,11 @@ class ShaderContainer {
 						let normalizedValue = this.$normalizeValue(type, value);
 
 						collectedUniforms[name] = {
-							value: normalizedValue
+							get value () {
+								return normalizedValue.valueOf()
+							},
 
-
+							set value (v) { normalizedValue = v } 
 						};
 					}
 				})
@@ -83,8 +87,17 @@ class ShaderContainer {
 			return color;
 		}
 
+		if (type == "sampler2D"){
+			let texture = this.getSomeTexture(value);
+			return texture;
+		}
+
 
 		return value;
+	}
+
+	getSomeTexture (regexp){
+		return Helpers.randValueFromObject(Helpers.filerObjectByRegExp(Textures, regexp))
 	}
 
 }

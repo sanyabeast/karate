@@ -41,9 +41,9 @@ class Weather {
 	init () {
 		this.ease("default", { duration: 0 })
 
-		this.ease("winter", {
-			onComplete: ()=>{ this.randWeather() }
-		})
+		// this.ease("winter", {
+		// 	onComplete: ()=>{ this.randWeather() }
+		// })
 	}
 
 	$killAllTweens () {  

@@ -106,7 +106,7 @@ class Unit {
 	}
 
 	createShaderMesh (description) {
-		let geometry = new THREE.PlaneGeometry(1, 1, 1)
+		let geometry = new THREE.PlaneGeometry(1, 1, 8)
 		let fragmentShaderContainer = Shaders[description.shader.fragment]
 		let vertexShaderContainer = Shaders[description.shader.vertex]
 
@@ -115,16 +115,29 @@ class Unit {
 			...vertexShaderContainer.collectUniforms(GlobalStorage, description.shader.uniforms)
 		}
 
+		geometry.translate(0, 0.5, 0)
+
 		let material = new THREE.ShaderMaterial({
 			fragmentShader: fragmentShaderContainer.code,
 			vertexShader: vertexShaderContainer.code,
 			uniforms: uniforms,
-			side: THREE.DoubleSide
+			side: THREE.DoubleSide,
+			transparent: true
 		})
 
 
-		clog(uniforms, geometry, material)
-		let object = THREE.Mesh(geometry, material)
+
+
+		// clog(uniforms, geometry, material)
+		let object = new THREE.Mesh(geometry, material)
+
+		if (description.scale){
+			let fuzzFactor = description.scale.fuzz
+			let scale = this.fuzz(description.scale.x, fuzzFactor);
+
+			object.scale.set(object.scale.x* scale, object.scale.y * scale,1)
+			
+		}
 
 		return object
 	}
@@ -154,7 +167,7 @@ class Unit {
 		group.add(sprite)
 		group.add(shadow)
 
-		console.log(group)
+		// console.log(group)
 
 		return group;
 	}

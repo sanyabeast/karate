@@ -8,12 +8,9 @@ elements:
       fuzz: 1.6
     shader:
       vertex: default.vert
-      fragment: color.frag
+      fragment: texture.frag
       uniforms: 
-        texture: "tree"
-        diffuse: 0xFF0000
-        opacity: 1
-    
+        map: kitty
 tags:
   - plant
   - bush

@@ -7,7 +7,8 @@ import Helpers from "Karton/Helpers"
 
 class ShaderContainer {
 	code = "";
-	uniformsRegexp = new RegExp("uniform\\s+\\w+\\s+\\w+;", "gm")
+	uniformsRegexp = new RegExp("uniform\\s+\\w+\\s+\\w+;", "gm");
+	uniformsLibIncludeRegexp = new RegExp("@@\\w+;", "gm");
 
 	constructor (glslCode) {
 		this.update(glslCode)
@@ -56,14 +57,41 @@ class ShaderContainer {
 
 	collectUniforms (...collections) {
 		let collectedUniforms = {}
+
+		collectedUniforms = this.$mergeFromUniformsLib(collectedUniforms, this.code)
 		
+		forEach(collectedUniforms, (value, name)=>{
+			let type = null;
+
+			forEach(collections, (collection)=>{
+
+				forEach(collection, ($value, $name)=>{
+					if (name == $name){
+						let normalizedValue = this.$normalizeValue(type, value, name);
+
+						collectedUniforms[name] = {
+							get value () {
+								return normalizedValue.valueOf()
+							},
+
+							set value (v) { normalizedValue = v } 
+						};
+					}
+				})
+
+			})
+
+		})
+
 		forEach (this.uniforms, (type, name)=>{
-			collectedUniforms[name] = this.getDefaultValue(type)
+			collectedUniforms[name] = collectedUniforms[name] || {
+				value: this.getDefaultValue(type)
+			}
 
 			forEach(collections, (collection, index)=>{
 				forEach(collection, (value, $name)=>{
 					if ($name == name){
-						let normalizedValue = this.$normalizeValue(type, value);
+						let normalizedValue = this.$normalizeValue(type, value, name);
 
 						collectedUniforms[name] = {
 							get value () {
@@ -77,10 +105,13 @@ class ShaderContainer {
 			})
 		})
 
+
+		// console.log(collectedUniforms)
+
 		return collectedUniforms
 	}
 
-	$normalizeValue (type, value) {
+	$normalizeValue (type, value, name) {
 		if (type == "vec3" && typeof value == "number"){
 			let color = new THREE.Color()
 			color.setHex(value)
@@ -92,12 +123,31 @@ class ShaderContainer {
 			return texture;
 		}
 
+		if (type === null && name == "map"){
+			let texture = this.getSomeTexture(value);
+			return texture;
+		}
 
 		return value;
 	}
 
 	getSomeTexture (regexp){
 		return Helpers.randValueFromObject(Helpers.filerObjectByRegExp(Textures, regexp))
+	}
+
+	$mergeFromUniformsLib (container, code) {
+		let tokens = code.match(this.uniformsLibIncludeRegexp)
+
+		forEach(tokens, (token, index)=>{
+			token = token.replace("@@", "").replace(";", "")
+			let lib = THREE.UniformsLib[token]
+			container = THREE.UniformsUtils.merge([
+				container,
+				lib
+			])
+		})
+
+		return container
 	}
 
 }

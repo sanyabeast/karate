@@ -36,12 +36,6 @@ elements:
           type: random
           probability: 0.035
           fuzz: 0.6
-    # - type: estate
-    #   name: shader-tree
-    #   location:
-    #       type: random
-    #       probability: 0.035
-    #       fuzz: 0.6
     - type: estate
       name: house
       location:

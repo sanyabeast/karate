@@ -7,10 +7,10 @@ elements:
       y: 2.4
       fuzz: 1.6
     shader:
-      vertex: default.vert
+      vertex: estate_plant.vert
       fragment: texture.frag
       uniforms: 
-        map: kitty
+        map: tree
 tags:
   - plant
   - bush

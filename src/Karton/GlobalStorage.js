@@ -2,7 +2,7 @@ import postal from "postal"
 import DataContainer from "Karton/DataTypes/DataContainer"
 
 class GlobalUniforms {
-	static time = new DataContainer(0);
+	static time = new DataContainer(2);
 }
 
 setInterval(()=>{

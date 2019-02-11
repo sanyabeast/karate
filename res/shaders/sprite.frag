@@ -1,8 +1,6 @@
-//@@sprite;
-//@@fog;
-
 uniform vec3 diffuse;
 uniform float opacity;
+uniform float time;
 
 #include <common>
 #include <uv_pars_fragment>
@@ -16,7 +14,7 @@ void main() {
 	#include <clipping_planes_fragment>
 
 	vec3 outgoingLight = vec3( 0.0 );
-	vec4 diffuseColor = vec4( diffuse, opacity );
+	vec4 diffuseColor = vec4( diffuse, time );
 
 	#include <logdepthbuf_fragment>
 	#include <map_fragment>

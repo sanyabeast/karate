@@ -25,14 +25,14 @@ class Shaders {
 Shaders.importShaders()
 
 
-THREE.ShaderLib.sprite = {
-	vertexShader: Shaders.content["sprite.vert"],
-	fragmentShader: Shaders.content["sprite.frag"],
-	uniforms: {
-		...THREE.ShaderLib.sprite.uniforms,
-		time: GlobalStorage.time
-	}
-}
+// THREE.ShaderLib.sprite = {
+// 	vertexShader: Shaders.content["sprite.vert"],
+// 	fragmentShader: Shaders.content["sprite.frag"],
+// 	uniforms: {
+// 		...THREE.ShaderLib.sprite.uniforms,
+// 		time: GlobalStorage.time
+// 	}
+// }
 
 // THREE.ShaderLib.sprite = new Proxy(THREE.ShaderLib.sprite, {
 // 	get: function(target, name){

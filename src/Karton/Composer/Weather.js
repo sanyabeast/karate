@@ -26,7 +26,7 @@ class Weather {
 
 		this.renderer = renderer
 		this.$easeSettings = {
-			duration: 1,
+			duration: 0.2,
 			yoyo: true,
 			ease: "easeInOutBack" 
 		}
@@ -41,9 +41,9 @@ class Weather {
 	init () {
 		this.ease("default", { duration: 0 })
 
-		// this.ease("winter", {
-		// 	onComplete: ()=>{ this.randWeather() }
-		// })
+		this.ease("winter", {
+			onComplete: ()=>{ this.randWeather() }
+		})
 	}
 
 	$killAllTweens () {  

@@ -13,7 +13,6 @@ const sourceMap = env === 'development';
 
 env == "production" && increaseVersionBuildNumber();
 
-
 let webpackConfig = {
     devtool: sourceMap ? 'cheap-module-eval-source-map' : undefined,
     mode: env,
@@ -84,7 +83,7 @@ let webpackConfig = {
       new HtmlWebpackPlugin({
         filename: path.join(__dirname, 'dist', 'index.html'),
         template: path.join(__dirname, 'static', 'index.html'),
-        inject: env == "development",
+        inject: true,
       }),
       new webpack.ProvidePlugin({
         THREE: 'three',

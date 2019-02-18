@@ -1,4 +1,5 @@
 import { Group, SpriteMaterial, Sprite } from "three"
+import * as THREE from "three"
 import { forEach } from "lodash"
 import Units from "Karton/Units"
 import Textures from "Karton/Textures"
@@ -73,7 +74,6 @@ class Unit {
 		let texture = this.getSomeTexture(description.texture)
 
 		var spriteMaterial = new SpriteMaterial( { map: texture, color: 0xffffff, transparent: true } );
-
 		var sprite = new Sprite( spriteMaterial );
 
 		if (description.scale){
@@ -101,6 +101,8 @@ class Unit {
 		if (description.shadow === 1){
 			this.createShadowSprite(sprite)
 		}
+
+		window.sprite = sprite;
 
 		return sprite;
 	}

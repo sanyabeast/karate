@@ -1,15 +1,16 @@
 import postal from "postal"
 import DataContainer from "Karton/DataTypes/DataContainer"
 
-class GlobalUniforms {
+class GlobalStorage {
 	static time = new DataContainer(2);
 }
 
 setInterval(()=>{
-	// GlobalUniforms.time.set(GlobalUniforms.time + 1);
-	// GlobalUniforms.time.set(GlobalUniforms.time % 60000)
+	GlobalStorage.time.set(GlobalStorage.time + 1/60000);
+	GlobalStorage.time.set(GlobalStorage.time % 1)
 }, 1000 / 60)
 
-window.GlobalUniforms = GlobalUniforms;
+window.GlobalStorage = GlobalStorage;
 
-export default GlobalUniforms
+
+export default GlobalStorage

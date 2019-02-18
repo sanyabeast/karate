@@ -1,6 +1,7 @@
 class DataContainer {
 	$value = undefined;
-
+	dontClone = true;
+	
 	get value () { return this.valueOf() }
 	set value(value){ this.set(value) }
 

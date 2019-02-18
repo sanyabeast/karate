@@ -34,6 +34,10 @@ void main() {
 
 	mvPosition.xy += rotatedPosition;
 
+	if (mvPosition.y > 0.){
+		mvPosition.x += sin(time * 1000.) / 10.;		
+	}
+
 	gl_Position = projectionMatrix * mvPosition;
 
 
